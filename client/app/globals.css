@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: european;
+  src: url("/fonts/EuropeanTeletext.ttf");
+}
+
+* {
+  font-family: european;
+}
+
+body {
+  background-color: #e1d9d1;
+}
