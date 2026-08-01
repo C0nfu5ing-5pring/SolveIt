@@ -1,24 +1,25 @@
 const Sidebar = () => {
   return (
-    <div className="h-[85vh] border-3 p-5 w-[15%]">
-      <div className="flex flex-col gap-5">
+    <div className="h-[85vh] border-3 rounded-md p-5 w-[15%]">
+      <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl">FILTERS</h1>
-          <hr />
+          <h1 className="text-xl">FILTERS</h1>
+
+          <hr className="border border-dashed w-full" />
+
           <div>
-            <label htmlFor="class" className="text-xl">
+            <label htmlFor="class" className="text-lg">
               Class
             </label>
             <select
               name="class"
               id="class"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
-              <option value="" className="text-lg">
-                All Classes
-              </option>
+              <option value="">All Classes</option>
             </select>
           </div>
+
           <div>
             <label htmlFor="subject" className="text-xl">
               Subject
@@ -26,13 +27,14 @@ const Sidebar = () => {
             <select
               name="subject"
               id="subject"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Subjects
               </option>
             </select>
           </div>
+
           <div>
             <label htmlFor="exam" className="text-xl">
               Exam
@@ -41,13 +43,14 @@ const Sidebar = () => {
             <select
               name="exam"
               id="exam"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Exams
               </option>
             </select>
           </div>
+
           <div>
             <label htmlFor="year" className="text-xl">
               Year
@@ -56,13 +59,14 @@ const Sidebar = () => {
             <select
               name="year"
               id="year"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Years
               </option>
             </select>
           </div>
+
           <div>
             <label htmlFor="country" className="text-xl">
               Country
@@ -70,13 +74,14 @@ const Sidebar = () => {
             <select
               name="country"
               id="country"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Countries
               </option>
             </select>
           </div>
+
           <div>
             <label htmlFor="state" className="text-xl">
               State
@@ -84,7 +89,7 @@ const Sidebar = () => {
             <select
               name="state"
               id="state"
-              className="bg-white px-1 py-2 focus:outline-none border-2 rounded-md text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All States
@@ -93,10 +98,8 @@ const Sidebar = () => {
             </select>
           </div>
         </div>
-        <hr />
-        <div>
-          <h1 className="text-2xl">DOWNLOADS</h1>
-        </div>
+
+        <hr className="border border-dashed w-full" />
       </div>
     </div>
   );

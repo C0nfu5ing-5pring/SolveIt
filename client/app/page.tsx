@@ -1,16 +1,35 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+  const [search, setSearch] = useState("");
+  const router = useRouter();
+
+  const handleOnBrowseClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/signup");
+      return;
+    }
+
+    router.push(`/browse?search=${encodeURIComponent(search)}`);
+  };
+
   return (
-    <div className="p-5">
-      <div className="border-black border-3 h-15 flex items-center">
-        <input
-          type="text"
-          className="w-[90%] h-10 focus:outline-none px-3 text-2xl"
-          placeholder="Enter something..."
-        />
-        <button className="mx-auto bg-black cursor-pointer text-white h-10 px-5 rounded-sm active:scale-90 transition-all">
-          Search
-        </button>
+    <div className="p-5 flex-1 flex flex-col items-center justify-center gap-6 text-center">
+      <div>
+        <h1 className="text-7xl">Solve It</h1>
+        <p className="text-2xl">Find and share previous year question papers</p>
       </div>
+
+      <button
+        className="bg-black py-4 px-10 text-white rounded-md text-xl active:scale-95 transition-all hover:scale-102 cursor-pointer"
+        onClick={handleOnBrowseClick}
+      >
+        Browse Papers
+      </button>
     </div>
   );
 }

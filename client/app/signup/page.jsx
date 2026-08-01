@@ -1,8 +1,9 @@
 "use client";
 import { use, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function page() {
+export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,11 +47,11 @@ export default function page() {
   const handleOnPasswordChange = (e) => setPassword(e.target.value);
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-15 py-5">
-      <div className="w-full max-w-md border-3 py-10 px-5 bg-white rounded-md">
+    <div className="min-h-[85vh] flex items-center justify-center">
+      <div>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-10">
-            <h1 className="text-center text-5xl">Create Account</h1>
+          <div className="flex flex-col gap-5">
+            <h1 className="text-left text-4xl">Sign up</h1>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
 
@@ -65,7 +66,7 @@ export default function page() {
                   value={name}
                   onChange={handleOnNameChange}
                   required
-                  className="text-lg border cursor-pointer px-3 bg-white py-2 focus:outline-none focus:border-2 rounded-sm "
+                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
@@ -80,7 +81,7 @@ export default function page() {
                   value={email}
                   onChange={handleOnEmailChange}
                   required
-                  className="text-lg border cursor-pointer px-3 bg-white py-2 focus:outline-none focus:border-2 rounded-sm "
+                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
@@ -95,7 +96,7 @@ export default function page() {
                   value={password}
                   onChange={handleOnPasswordChange}
                   required
-                  className="text-lg border cursor-pointer px-3 bg-white py-2 focus:outline-none focus:border-2 rounded-sm "
+                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
@@ -106,6 +107,12 @@ export default function page() {
               >
                 {loading ? "Creating account..." : "Sign Up"}
               </button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <hr className="border border-dashed w-full" />
+              <p>or</p>
+              <hr className="border border-dashed w-full" />
             </div>
           </div>
 

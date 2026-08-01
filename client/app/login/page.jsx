@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -46,10 +47,10 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center">
-      <div className="w-full max-w-md border-3 py-10 px-5 bg-white rounded-md">
+      <div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-10">
-            <h1 className="text-center text-5xl">Log in</h1>
+            <h1 className="text-left text-4xl">Log in</h1>
             {error && (
               <p className="text-red-500 text-base text-center capitalize">
                 {error}
@@ -67,7 +68,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={handleOnEmailChange}
                   required
-                  className="text-lg border cursor-pointer px-3 bg-white py-2 focus:outline-none focus:border-2 rounded-sm "
+                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
@@ -80,11 +81,9 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={handleOnPasswordChange}
-                  className="text-lg border cursor-pointer px-3 bg-white py-2 focus:outline-none focus:border-2 rounded-sm "
+                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
-
-              <hr className="border- border-dashed" />
 
               <button
                 type="submit"
@@ -93,14 +92,20 @@ export default function LoginPage() {
               >
                 {loading ? "Logging in" : "Log in"}
               </button>
+
+              <div className="flex items-center gap-2">
+                <hr className="border border-dashed w-full" />
+                <p>or</p>
+                <hr className="border border-dashed w-full" />
+              </div>
             </div>
           </div>
 
           <p className="text-base text-center mt-2">
             Don't have an account?{" "}
-            <a href="/signup" className="underline">
+            <Link href="/signup" className="underline">
               Sign up
-            </a>
+            </Link>
           </p>
         </form>
       </div>
