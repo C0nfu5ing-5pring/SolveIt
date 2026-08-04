@@ -134,24 +134,26 @@ export default function UploadPage() {
     }
   };
   return (
-    <div className="h-[85vh] flex items-center justify-center px-15 py-5">
-      <div className="w-full rounded-lg border-2 p-10">
+    <div className="h-[85vh] flex items-center justify-center md:px-10 lg:px-15 lg:py-5">
+      <div className="w-full rounded-lg border-2 p-8 md:p-9 lg:p-10">
         <form onSubmit={handleFormSubmit}>
-          <div className="flex flex-col gap-10">
-            <h1 className="text-left text-4xl">Upload</h1>
+          <div className="flex flex-col gap-7 md:gap-8 lg:gap-10">
+            <h1 className="text-left text-2xl md:text-3xl lg:text-4xl">
+              Upload
+            </h1>
 
             {error && <p className="text-red-500">{error}</p>}
 
             <div className="grid grid-cols-2 gap-x-10 gap-y-3">
               <div className="flex flex-col gap-2">
-                <label htmlFor="name" className="text-2xl">
+                <label htmlFor="name" className="text-md md:text-lg lg:text-xl">
                   Country
                 </label>
 
                 <select
                   value={country}
                   onChange={handleOnCountryChange}
-                  className="text-lg border cursor-pointer px-3 py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                  className="text-md md:text-lg lg:text-xl border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
                 >
                   <option value="">Select Country</option>
                   <option value="India">India</option>
@@ -161,7 +163,10 @@ export default function UploadPage() {
               {country === "India" && (
                 <>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-2xl">
+                    <label
+                      htmlFor="name"
+                      className="text-md md:text-lg lg:text-xl"
+                    >
                       Title
                     </label>
                     <input
@@ -169,20 +174,23 @@ export default function UploadPage() {
                       placeholder="Enter title"
                       value={title}
                       onChange={handleOnTitleChange}
-                      className="text-lg border cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      className="text-md md:text-lg lg:text-xl border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
                       required
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-2xl">
+                    <label
+                      htmlFor="name"
+                      className="text-md md:text-lg lg:text-xl"
+                    >
                       Exam
                     </label>
 
                     <select
                       value={examName}
                       onChange={handleOnExamNameChange}
-                      className="text-lg border cursor-pointer px-3 py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      className="text-md md:text-lg lg:text-xl border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
                       required
                     >
                       <option value="">Select Exam</option>
@@ -198,13 +206,16 @@ export default function UploadPage() {
                   {examName === "State Boards" && (
                     <div className="flex flex-col gap-5">
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="name" className="text-2xl">
+                        <label
+                          htmlFor="name"
+                          className="text-md md:text-lg lg:text-xl"
+                        >
                           State
                         </label>
                         <select
                           value={state}
                           onChange={handleOnStateChange}
-                          className="text-lg border cursor-pointer px-3 py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                          className="text-md md:text-lg lg:text-xl border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
                           required
                         >
                           <option value="">Select State</option>
@@ -246,7 +257,10 @@ export default function UploadPage() {
                   )}
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-2xl">
+                    <label
+                      htmlFor="name"
+                      className="text-md md:text-lg lg:text-xl"
+                    >
                       Class
                     </label>
 
@@ -254,7 +268,7 @@ export default function UploadPage() {
                       value={className}
                       onChange={handleOnClassChange}
                       required
-                      className="text-lg border cursor-pointer px-3 py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      className="text-md md:text-lg lg:text-xl border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
                     >
                       <option value="">Select Class</option>
                       <option value="9">Class 9</option>
@@ -265,14 +279,17 @@ export default function UploadPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-2xl">
+                    <label
+                      htmlFor="name"
+                      className="text-md md:text-lg lg:text-xl"
+                    >
                       Subject
                     </label>
 
                     <select
                       value={subject}
                       onChange={handleOnSubjectChange}
-                      className="text-lg border cursor-pointer px-3 py-3 focus:outline-none focus:border-[1.5] rounded-sm "
+                      className="text-sm md:text-md lg:text-lg border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm "
                       required
                     >
                       <option value="">Select Subject</option>
@@ -322,7 +339,10 @@ export default function UploadPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-2xl">
+                    <label
+                      htmlFor="name"
+                      className="rext-md md:text-lg lg:text-xl"
+                    >
                       Year
                     </label>
 
@@ -334,7 +354,7 @@ export default function UploadPage() {
                       max={new Date().getFullYear()}
                       step={1}
                       onChange={handleOnYearChange}
-                      className="text-lg border cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] rounded-sm "
+                      className="text-md md:text-lg lg:text-xl border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
                       required
                     />
                   </div>
@@ -343,7 +363,7 @@ export default function UploadPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-2xl">
+              <label htmlFor="name" className="text-md md:text-lg lg:text-xl">
                 File
               </label>
 
@@ -355,11 +375,17 @@ export default function UploadPage() {
                 className={`flex flex-col py-5 items-center justify-center gap-2 border-2 border-dashed rounded-sm cursor-pointer transition-all ${isDragging ? "border-black bg-gray-100" : "border-black"}`}
               >
                 {file ? (
-                  <p className="text-lg">{file.name}</p>
+                  <p className="text-xs md:text-sm lg:text-base text-center">
+                    {file.name}
+                  </p>
                 ) : (
                   <>
-                    <p>Drag and drop here or click to select file</p>
-                    <p>Max file size - 25MB</p>
+                    <p className="text-xs md:text-sm lg:text-base text-center">
+                      Drag and drop here or click to select file
+                    </p>
+                    <p className="text-xs md:text-sm lg:text-base text-center">
+                      Max file size - 25MB
+                    </p>
                   </>
                 )}
 
@@ -376,7 +402,7 @@ export default function UploadPage() {
             <button
               type="submit"
               disabled={loading}
-              className="text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
+              className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
             >
               {loading ? "Uploading..." : "Upload"}
             </button>

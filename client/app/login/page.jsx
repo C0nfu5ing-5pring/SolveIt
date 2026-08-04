@@ -50,7 +50,9 @@ export default function LoginPage() {
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-10">
-            <h1 className="text-left text-4xl">Log in</h1>
+            <h1 className="text-left text-2xl md:text-3xl lg:text-4xl">
+              Log in
+            </h1>
             {error && (
               <p className="text-red-500 text-base text-center capitalize">
                 {error}
@@ -59,7 +61,10 @@ export default function LoginPage() {
 
             <div className="flex flex-col gap-5">
               <div className="flex flex-col">
-                <label htmlFor="email" className="text-xl">
+                <label
+                  htmlFor="email"
+                  className="text-md md:text-lg lg:text-xl"
+                >
                   Email
                 </label>
                 <input
@@ -68,12 +73,15 @@ export default function LoginPage() {
                   value={email}
                   onChange={handleOnEmailChange}
                   required
-                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="password" className="text-xl">
+                <label
+                  htmlFor="password"
+                  className="text-md md:text-lg lg:text-xl"
+                >
                   Password
                 </label>
                 <input
@@ -81,14 +89,14 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={handleOnPasswordChange}
-                  className="text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
+                className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
               >
                 {loading ? "Logging in" : "Log in"}
               </button>
@@ -101,7 +109,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="text-base text-center mt-2">
+          <p className="text-xs md:text-sm lg:text-base text-center mt-2">
             Don't have an account?{" "}
             <Link href="/signup" className="underline">
               Sign up
