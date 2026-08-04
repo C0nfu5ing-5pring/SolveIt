@@ -1,4 +1,42 @@
-const Sidebar = () => {
+const Sidebar = ({
+  papers,
+  classFilter,
+  subjectFilter,
+  examFilter,
+  yearFilter,
+  countryFilter,
+  stateFilter,
+  setClassFilter,
+  setSubjectFilter,
+  setExamFilter,
+  setYearFilter,
+  setCountryFilter,
+  setStateFilter,
+}) => {
+  const uniqueClasses = [
+    ...new Set((papers || []).map((paper) => paper.class).filter(Boolean)),
+  ].sort();
+
+  const uniqueSubjects = [
+    ...new Set((papers || []).map((paper) => paper.subject).filter(Boolean)),
+  ].sort();
+
+  const uniqueExams = [
+    ...new Set((papers || []).map((paper) => paper.exam_name).filter(Boolean)),
+  ].sort();
+
+  const uniqueYears = [
+    ...new Set((papers || []).map((paper) => paper.year).filter(Boolean)),
+  ].sort();
+
+  const uniqueCountries = [
+    ...new Set((papers || []).map((paper) => paper.country).filter(Boolean)),
+  ].sort();
+
+  const uniqueStates = [
+    ...new Set((papers || []).map((paper) => paper.state).filter(Boolean)),
+  ].sort();
+
   return (
     <div className="h-[85vh] border-3 rounded-md p-5 w-[15%]">
       <div className="flex flex-col gap-3">
@@ -14,9 +52,16 @@ const Sidebar = () => {
             <select
               name="class"
               id="class"
+              value={classFilter}
+              onChange={(e) => setClassFilter(e.target.value)}
               className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="">All Classes</option>
+              {uniqueClasses.map((ans) => (
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -27,11 +72,18 @@ const Sidebar = () => {
             <select
               name="subject"
               id="subject"
+              value={subjectFilter}
+              onChange={(e) => setSubjectFilter(e.target.value)}
               className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Subjects
               </option>
+              {uniqueSubjects.map((ans) => (
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -43,11 +95,20 @@ const Sidebar = () => {
             <select
               name="exam"
               id="exam"
+              value={examFilter}
+              onChange={(e) => {
+                setExamFilter(e.target.value);
+              }}
               className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
             >
               <option value="" className="text-lg">
                 All Exams
               </option>
+              {uniqueExams.map((ans) => (
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -59,11 +120,18 @@ const Sidebar = () => {
             <select
               name="year"
               id="year"
+              value={yearFilter}
               className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              onChange={(e) => setYearFilter(e.target.value)}
             >
               <option value="" className="text-lg">
                 All Years
               </option>
+              {uniqueYears.map((ans) => (
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -74,11 +142,18 @@ const Sidebar = () => {
             <select
               name="country"
               id="country"
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              value={countryFilter}
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base "
+              onChange={(e) => setCountryFilter(e.target.value)}
             >
               <option value="" className="text-lg">
                 All Countries
               </option>
+              {uniqueCountries.map((ans) => (
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -90,11 +165,17 @@ const Sidebar = () => {
               name="state"
               id="state"
               className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              value={stateFilter}
+              onChange={(e) => setStateFilter(e.target.value)}
             >
               <option value="" className="text-lg">
                 All States
               </option>
-              X
+              {uniqueStates.map((ans) => {
+                <option key={ans} value={ans}>
+                  {ans}
+                </option>;
+              })}
             </select>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { db } from "../db/mysql.js";
+import path from "path";
 
 export const uploadPaper = async (req, res) => {
   try {
@@ -62,11 +63,11 @@ export const getPapers = async (req, res) => {
     const parameters = [];
 
     if (className) {
-      query += "AND class = ?";
+      query += " AND class = ?";
       parameters.push(className);
     }
     if (subject) {
-      query += "AND subject = ?";
+      query += " AND subject = ?";
       parameters.push(subject);
     }
 
@@ -76,12 +77,12 @@ export const getPapers = async (req, res) => {
     }
 
     if (country) {
-      query += "AND country = ?";
+      query += " AND country = ?";
       parameters.push(country);
     }
 
     if (state) {
-      query += "AND state = ?";
+      query += " AND state = ?";
       parameters.push(state);
     }
 
@@ -99,5 +100,35 @@ export const getPapers = async (req, res) => {
       sucess: false,
       message: "Something went wrong",
     });
+  }
+};
+
+export const downloadPaper = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [papers] = await db.query("SELECT * FROM papers WHERE id =?", [id]);
+
+    if (papers.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Paper not found" });
+    }
+
+    const paper = papers[0];
+
+    await db.query(
+      "UPDATE papers SET download_count = download_count + 1 WHERE id = ?",
+      [id],
+    );
+
+    const filePath = path.join(process.cwd(), paper.file_path);
+
+    return res.download(filePath, `${paper.title}.pdf`);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
   }
 };
