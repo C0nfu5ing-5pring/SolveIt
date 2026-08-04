@@ -20,12 +20,14 @@ export default function Home() {
   return (
     <div className="p-5 flex-1 flex flex-col items-center justify-center gap-6 text-center">
       <div>
-        <h1 className="text-7xl">Solve It</h1>
-        <p className="text-2xl">Find and share previous year question papers</p>
+        <h1 className="text-4xl md:text-5xl lg:text-7xl">Solve It</h1>
+        <p className="text-lg md:text-xl lg:text-2xl leading-5">
+          Find and share previous year question papers
+        </p>
       </div>
 
       <button
-        className="bg-black py-4 px-10 text-white rounded-md text-xl active:scale-95 transition-all hover:scale-102 cursor-pointer"
+        className="bg-black py-2 px-5 md:py-3 md:px-7 lg:py-4 lg:px-10 text-white rounded-md text-md md:text-lg lg:text-xl active:scale-95 transition-all hover:scale-102 cursor-pointer"
         onClick={handleOnBrowseClick}
       >
         Browse Papers
