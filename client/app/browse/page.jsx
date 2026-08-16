@@ -1,7 +1,9 @@
 "use client";
 import Sidebar from "../../components/Sidebar.jsx";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation.js";
+import { useRouter } from "next/navigation";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Bookmark02Icon, File02Icon } from "@hugeicons/core-free-icons";
 
 export default function BrowsePage() {
   const [papers, setPapers] = useState([]);
@@ -92,6 +94,7 @@ export default function BrowsePage() {
 
     if (!token) {
       router.push("/login");
+      return;
     }
 
     try {
@@ -142,20 +145,45 @@ export default function BrowsePage() {
           <div key={paper.id}>
             <div
               onClick={() => handlePaperClick(paper)}
-              className="border rounded-xl p-4 cursor-pointer hover:shadow-md transition-all flex flex-col gap-1"
+              className="border-2 border-solid border-black p-5 rounded-xl flex flex-col gap-3"
             >
-              <h2>{paper.title}</h2>
-              <p>
-                {paper.subject}.{paper.state}.{paper.country}
-              </p>
-              <p>{paper.year}</p>
+              <div className="flex justify-between">
+                <HugeiconsIcon icon={File02Icon} />
+
+                <HugeiconsIcon
+                  icon={Bookmark02Icon}
+                  size={24}
+                  color="currentColor"
+                  strokeWidth={1.5}
+                />
+              </div>
+
+              <div>{paper.title}</div>
+
+              <div>
+                {paper.subject} | {paper.state}
+              </div>
+
+              <div>
+                {paper.exam_name} | {paper.year} | {paper.download_count}{" "}
+                downloads
+              </div>
+
+              <hr />
+
+              <div>
+                <p>Uploaded at: {new Date(paper.uploaded_at).toDateString()}</p>
+                <p>Uploaded by: {paper.uploader_name}</p>
+              </div>
+
+              <hr />
 
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDownloadButtonClick(paper);
                 }}
-                className="bg-black text-white text-sm px-3 py-1 rounded-lg mt-2 cursor-pointer active:scale-90 transition-all"
+                className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
               >
                 Download
               </button>
