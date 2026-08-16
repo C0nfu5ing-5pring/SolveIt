@@ -3,7 +3,11 @@ import Sidebar from "../../components/Sidebar.jsx";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Bookmark02Icon, File02Icon } from "@hugeicons/core-free-icons";
+import {
+  Bookmark02Icon,
+  File02Icon,
+  FilterIcon,
+} from "@hugeicons/core-free-icons";
 
 export default function BrowsePage() {
   const [papers, setPapers] = useState([]);
@@ -14,34 +18,18 @@ export default function BrowsePage() {
   const [yearFilter, setYearFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
   const [stateFilter, setStateFilter] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const router = useRouter();
 
   const filteredPapersss = papers.filter((paper) => {
-    if (classFilter && paper.class !== classFilter) {
-      return false;
-    }
-
-    if (subjectFilter && paper.subject !== subjectFilter) {
-      return false;
-    }
-
-    if (examFilter && paper.exam_name !== examFilter) {
-      return false;
-    }
-
-    if (yearFilter && String(paper.year) !== yearFilter) {
-      return false;
-    }
-
-    if (countryFilter && paper.country !== countryFilter) {
-      return false;
-    }
-
-    if (stateFilter && paper.state !== stateFilter) {
-      return false;
-    }
+    if (classFilter && paper.class !== classFilter) return false;
+    if (subjectFilter && paper.subject !== subjectFilter) return false;
+    if (examFilter && paper.exam_name !== examFilter) return false;
+    if (yearFilter && String(paper.year) !== yearFilter) return false;
+    if (countryFilter && paper.country !== countryFilter) return false;
+    if (stateFilter && paper.state !== stateFilter) return false;
     return true;
   });
-  const router = useRouter();
 
   useEffect(() => {
     const fetchPapers = async () => {
@@ -77,23 +65,10 @@ export default function BrowsePage() {
     );
   };
 
-  if (loading) {
-    return <p className="text-center mt-10">Loading papers...</p>;
-  }
-
-  if (papers.length === 0) {
-    return (
-      <p className="text-center mt-10">
-        No papers uploaded yet for this category
-      </p>
-    );
-  }
-
   const handleDownloadButtonClick = async (paper) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      router.push("/login");
       return;
     }
 
@@ -123,29 +98,52 @@ export default function BrowsePage() {
     }
   };
 
+  if (loading) {
+    return <p className="text-center mt-10">Loading papers...</p>;
+  }
+
+  if (papers.length === 0) {
+    return (
+      <p className="text-center mt-10">
+        No papers uploaded yet for this category
+      </p>
+    );
+  }
+
   return (
-    <div className="flex gap-5">
-      <Sidebar
-        papers={papers}
-        classFilter={classFilter}
-        subjectFilter={subjectFilter}
-        examFilter={examFilter}
-        yearFilter={yearFilter}
-        countryFilter={countryFilter}
-        stateFilter={stateFilter}
-        setClassFilter={setClassFilter}
-        setYearFilter={setYearFilter}
-        setCountryFilter={setCountryFilter}
-        setStateFilter={setStateFilter}
-        setSubjectFilter={setSubjectFilter}
-        setExamFilter={setExamFilter}
-      />
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col md:flex-row gap-5 h-full min-h-0">
+      <button
+        onClick={() => setFiltersOpen((prev) => !prev)}
+        className="md:hidden flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
+      >
+        <HugeiconsIcon icon={FilterIcon} size={20} />
+        {filtersOpen ? "Hide Filters" : "Show Filters"}
+      </button>
+
+      <div className={`${filtersOpen ? "block" : "hidden"} md:block`}>
+        <Sidebar
+          papers={papers}
+          classFilter={classFilter}
+          subjectFilter={subjectFilter}
+          examFilter={examFilter}
+          yearFilter={yearFilter}
+          countryFilter={countryFilter}
+          stateFilter={stateFilter}
+          setClassFilter={setClassFilter}
+          setYearFilter={setYearFilter}
+          setCountryFilter={setCountryFilter}
+          setStateFilter={setStateFilter}
+          setSubjectFilter={setSubjectFilter}
+          setExamFilter={setExamFilter}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-auto overflow-x-hidden flex-1">
         {filteredPapersss.map((paper) => (
           <div key={paper.id}>
             <div
               onClick={() => handlePaperClick(paper)}
-              className="border-2 border-solid border-black p-5 rounded-xl flex flex-col gap-3"
+              className="border-2 border-solid border-black p-5 rounded-xl flex flex-col gap-3  cursor-pointer   min-h-0 flex-1"
             >
               <div className="flex justify-between">
                 <HugeiconsIcon icon={File02Icon} />
