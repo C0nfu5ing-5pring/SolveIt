@@ -59,7 +59,8 @@ export const getPapers = async (req, res) => {
   try {
     const { class: className, subject, exam_name, country, state } = req.query;
 
-    let query = "SELECT * FROM papers WHERE 1=1";
+    let query =
+      "SELECT papers.*, users.name AS uploader_name FROM papers LEFT JOIN users ON papers.uploaded_by = users.id WHERE 1=1";
     const parameters = [];
 
     if (className) {
