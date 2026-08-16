@@ -28,20 +28,20 @@ const Header = () => {
         <h1 className="text-xl lg:text-3xl">Solve It</h1>
 
         <div className="hidden md:flex items-center gap-5">
-          <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
-            <Link href="/browse">Browse</Link>
-          </p>
-
-          <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
-            <Link href="/upload">Upload</Link>
-          </p>
-
-          <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
-            <Link href="/contact">Contact</Link>
-          </p>
-
           {user ? (
             <>
+              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+                <Link href="/browse">Browse</Link>
+              </p>
+
+              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+                <Link href="/upload">Upload</Link>
+              </p>
+
+              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+                <Link href="/contact">Contact</Link>
+              </p>
+
               <p className="text-lg font-bold">
                 Hi,{" "}
                 <span className="underline underline-offset-2">
@@ -93,40 +93,45 @@ const Header = () => {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden grid grid-cols-2 gap-2 mt-2 pt-4 border-t-2 border-dashed">
-          <Link
-            href="/browse"
-            className="text-lg"
-            onClick={() => setMenuOpen(false)}
-          >
-            Browse
-          </Link>
-          <Link
-            href="/upload"
-            className="text-lg"
-            onClick={() => setMenuOpen(false)}
-          >
-            Upload
-          </Link>
+        <div className="md:hidden absolute left-0 p-6 top-full w-full grid grid-cols-2 gap-2 mt-2 pt-4 border-2 shadow-lg z-67 border-solid rounded-lg bg-[#E1D9D1]">
+          {user && (
+            <>
+              <Link
+                href="/browse"
+                className="text-lg py-1"
+                onClick={() => setMenuOpen(false)}
+              >
+                Browse
+              </Link>
+
+              <Link
+                href="/upload"
+                className="text-lg py-1"
+                onClick={() => setMenuOpen(false)}
+              >
+                Upload
+              </Link>
+            </>
+          )}
           <Link
             href="/contact"
-            className="text-lg"
+            className="text-lg py-1"
             onClick={() => setMenuOpen(false)}
           >
             Contact
           </Link>
-
           {user ? (
             <>
-              <p className="text-lg font-bold">
+              <p className="text-lg font-bol">
                 Hi,{" "}
                 <span className="underline underline-offset-2">
                   {user.name}
                 </span>
               </p>
+
               <button
                 onClick={handleLogout}
-                className="text-lg text-left cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90 w-fit"
+                className="text-lg text-left cursor-pointer transition-all"
               >
                 Log out
               </button>
