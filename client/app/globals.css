@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: european;
-  src: url("/fonts/EuropeanTeletext.ttf");
+  font-family: kiddos;
+  src: url("/fonts/KIdDOS.ttf");
 }
 
 * {
-  font-family: european;
+  font-family: kiddos;
 }
 
 body {
-  background-color: #e1d9d1;
+  background-color: white;
 }
