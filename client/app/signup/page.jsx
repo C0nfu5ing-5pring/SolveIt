@@ -2,6 +2,7 @@
 import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
   const [name, setName] = useState("");
@@ -29,6 +30,7 @@ export default function SignUpPage() {
 
       if (!data.success) {
         setError(data.message || "Something went wrong");
+        toast.error("Something went wrong, couldn't load data");
         setLoading(false);
         return;
       }
@@ -37,6 +39,7 @@ export default function SignUpPage() {
       localStorage.setItem("user", JSON.stringify(data.user));
       router.push("/browse");
     } catch (err) {
+      toast.error("Could not connect to server :(");
       setError("Could not connect to server :(");
       setLoading(false);
     }
@@ -51,15 +54,18 @@ export default function SignUpPage() {
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-5">
-            <h1 className="text-left text-2xl md:text-3xl lg:text-4xl">
-              Sign up
+            <h1 className="text-left text-3xl md:text-4xl lg:text-8xl">
+              Create your account
             </h1>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
 
             <div className="flex flex-col gap-5">
               <div className="flex flex-col">
-                <label htmlFor="name" className="text-md md:text-lg lg:text-xl">
+                <label
+                  htmlFor="name"
+                  className="text-xl md:text-2xl lg:text-3xl"
+                >
                   Name
                 </label>
                 <input
@@ -68,12 +74,15 @@ export default function SignUpPage() {
                   value={name}
                   onChange={handleOnNameChange}
                   required
-                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-lg md:text-xl lg:text-2xl border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="name" className="text-md md:text-lg lg:text-xl">
+                <label
+                  htmlFor="name"
+                  className="text-xl md:text-2xl lg:text-3xl"
+                >
                   Email
                 </label>
 
@@ -83,12 +92,15 @@ export default function SignUpPage() {
                   value={email}
                   onChange={handleOnEmailChange}
                   required
-                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-lg md:text-xl lg:text-2xl border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="name" className="text-md md:text-lg lg:text-xl">
+                <label
+                  htmlFor="name"
+                  className="text-xl md:text-2xl lg:text-3xl"
+                >
                   Password
                 </label>
 
@@ -98,14 +110,14 @@ export default function SignUpPage() {
                   value={password}
                   onChange={handleOnPasswordChange}
                   required
-                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-lg md:text-xl lg:text-2xl border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
+                className="text-lg md:text-xl lg:text-2xl w-[50%] mx-auto bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
               >
                 {loading ? "Creating account..." : "Sign Up"}
               </button>
@@ -118,7 +130,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          <p className="text-xs md:text-sm lg:text-base text-centermt-2">
+          <p className="text-lg md:text-xl lg:text-2xl text-center mt-2">
             Already have an account?{" "}
             <a href="/login" className="underline">
               Log in

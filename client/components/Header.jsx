@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +17,7 @@ const Header = () => {
   }, [pathname]);
 
   const handleLogout = () => {
+    toast.error("Logged out");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
@@ -25,24 +27,24 @@ const Header = () => {
   return (
     <div className="border-3 border-solid border-black py-3 px-5 rounded-md relative">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl lg:text-3xl">Solve It</h1>
+        <h1 className="text-4xl lg:text-5xl">Solve It</h1>
 
         <div className="hidden md:flex items-center gap-5">
           {user ? (
             <>
-              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+              <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
                 <Link href="/browse">Browse</Link>
               </p>
 
-              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+              <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
                 <Link href="/upload">Upload</Link>
               </p>
 
-              <p className="text-md lg:text-lg cursor-pointer transition-all hover:underline hover:underline-offset-8">
+              <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
                 <Link href="/contact">Contact</Link>
               </p>
 
-              <p className="text-lg font-bold">
+              <p className="text-2xl lg:text-3xl font-bold">
                 Hi,{" "}
                 <span className="underline underline-offset-2">
                   {user.name}
@@ -51,7 +53,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-lg cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
+                className="text-2xl lg:text-2xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
               >
                 Log out
               </button>
@@ -60,14 +62,14 @@ const Header = () => {
             <>
               <Link
                 href="/login"
-                className="text-md lg:text-lg cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
+                className="text-2xl lg:text-3xl cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
               >
                 <p>Log in</p>
               </Link>
 
               <Link
                 href="/signup"
-                className="text-md lg:text-lg cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90"
+                className="text-2xl lg:text-3xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90"
               >
                 <p>Sign up</p>
               </Link>
@@ -98,7 +100,7 @@ const Header = () => {
             <>
               <Link
                 href="/browse"
-                className="text-lg py-1"
+                className="text-2xl py-1"
                 onClick={() => setMenuOpen(false)}
               >
                 Browse
@@ -106,7 +108,7 @@ const Header = () => {
 
               <Link
                 href="/upload"
-                className="text-lg py-1"
+                className="text-2xl py-1"
                 onClick={() => setMenuOpen(false)}
               >
                 Upload
@@ -115,14 +117,14 @@ const Header = () => {
           )}
           <Link
             href="/contact"
-            className="text-lg py-1"
+            className="text-2xl py-1"
             onClick={() => setMenuOpen(false)}
           >
             Contact
           </Link>
           {user ? (
             <>
-              <p className="text-lg font-bol">
+              <p className="text-2xl font-bold">
                 Hi,{" "}
                 <span className="underline underline-offset-2">
                   {user.name}
@@ -131,7 +133,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-lg text-left cursor-pointer transition-all"
+                className="text-2xl text-left cursor-pointer transition-all"
               >
                 Log out
               </button>
@@ -141,14 +143,14 @@ const Header = () => {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="text-lg cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90 w-fit"
+                className="text-2xl cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90 w-fit"
               >
                 Log in
               </Link>
               <Link
                 href="/signup"
                 onClick={() => setMenuOpen(false)}
-                className="text-lg cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90 w-fit"
+                className="text-2xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90 w-fit"
               >
                 Sign up
               </Link>

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -35,8 +36,11 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      toast.success(`Welcome again ${data.user.name}`);
+
       router.push("/browse");
     } catch (err) {
+      toast.error("Could not connect to sever");
       setError("Could not connect to server :(");
       setLoading(false);
     }
@@ -46,12 +50,12 @@ export default function LoginPage() {
   const handleOnPasswordChange = (e) => setPassword(e.target.value);
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center">
+    <div className="min-h-[85vh] w-full flex items-center justify-center">
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-10">
-            <h1 className="text-left text-2xl md:text-3xl lg:text-4xl">
-              Log in
+            <h1 className="text-left text-3xl md:text-4xl lg:text-8xl">
+              Welcome Back!!!!
             </h1>
             {error && (
               <p className="text-red-500 text-base text-center capitalize">
@@ -63,7 +67,7 @@ export default function LoginPage() {
               <div className="flex flex-col">
                 <label
                   htmlFor="email"
-                  className="text-md md:text-lg lg:text-xl"
+                  className="text-xl md:text-2xl lg:text-3xl"
                 >
                   Email
                 </label>
@@ -73,14 +77,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={handleOnEmailChange}
                   required
-                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-lg md:text-xl lg:text-2xl border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <div className="flex flex-col">
                 <label
                   htmlFor="password"
-                  className="text-md md:text-lg lg:text-xl"
+                  className="text-xl md:text-2xl lg:text-3xl"
                 >
                   Password
                 </label>
@@ -89,14 +93,14 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={handleOnPasswordChange}
-                  className="text-xs md:text-sm lg:text-base border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
+                  className="text-lg md:text-xl lg:text-2xl border border-gray-500 cursor-pointer px-3 py-2 focus:outline-none focus:border-[1.5] focus:border-black rounded "
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
+                className="text-lg md:text-xl lg:text-2xl w-[50%] mx-auto bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
               >
                 {loading ? "Logging in" : "Log in"}
               </button>
@@ -109,7 +113,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="text-xs md:text-sm lg:text-base text-center mt-2">
+          <p className="text-lg md:text-xl lg:text-2xl text-center mt-2">
             Don't have an account?{" "}
             <Link href="/signup" className="underline">
               Sign up

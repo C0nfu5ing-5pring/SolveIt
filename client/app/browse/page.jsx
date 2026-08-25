@@ -3,11 +3,8 @@ import Sidebar from "../../components/Sidebar.jsx";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Bookmark02Icon,
-  File02Icon,
-  FilterIcon,
-} from "@hugeicons/core-free-icons";
+import { FilterIcon, Download01Icon } from "@hugeicons/core-free-icons";
+import { toast } from "react-toastify";
 
 export default function BrowsePage() {
   const [papers, setPapers] = useState([]);
@@ -83,6 +80,7 @@ export default function BrowsePage() {
       );
 
       if (!res.ok) {
+        toast.error("Failed to download the file :(");
         throw new Error("Failed to download the file :(");
       }
 
@@ -91,10 +89,13 @@ export default function BrowsePage() {
       const link = document.createElement("a");
       link.href = url;
       link.download = `${paper.title}.pdf`;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Error during downloading:", err);
+      toast.error("Error during downloading :(", err);
+      console.error("Error during downloading :(", err);
     }
   };
 
@@ -114,9 +115,9 @@ export default function BrowsePage() {
     <div className="flex flex-col md:flex-row gap-5 h-full min-h-0">
       <button
         onClick={() => setFiltersOpen((prev) => !prev)}
-        className="md:hidden flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
+        className="md:hidden text-xl flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
       >
-        <HugeiconsIcon icon={FilterIcon} size={20} />
+        <HugeiconsIcon icon={FilterIcon} size={25} />
         {filtersOpen ? "Hide Filters" : "Show Filters"}
       </button>
 
@@ -138,56 +139,89 @@ export default function BrowsePage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-auto overflow-x-hidden flex-1">
-        {filteredPapersss.map((paper) => (
-          <div key={paper.id}>
-            <div
-              onClick={() => handlePaperClick(paper)}
-              className="border-2 border-solid border-black p-5 rounded-xl flex flex-col gap-3  cursor-pointer   min-h-0 flex-1"
-            >
-              <div className="flex justify-between">
-                <HugeiconsIcon icon={File02Icon} />
+      <div className="columns-1 sm:columns-1 md:columns-2 lg:columns-3 xl:columnst-4 gap-4 overflow-y-auto overflow-x-hidden flex-1">
+        {filteredPapersss.map((paper) => {
+          const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
+          const filesizeinkb = (paper.file_size / 1024).toFixed(1);
 
-                <HugeiconsIcon
-                  icon={Bookmark02Icon}
-                  size={24}
-                  color="currentColor"
-                  strokeWidth={1.5}
-                />
-              </div>
-
-              <div>{paper.title}</div>
-
-              <div>
-                {paper.subject} | {paper.state}
-              </div>
-
-              <div>
-                {paper.exam_name} | {paper.year} | {paper.download_count}{" "}
-                downloads
-              </div>
-
-              <hr />
-
-              <div>
-                <p>Uploaded at: {new Date(paper.uploaded_at).toDateString()}</p>
-                <p>Uploaded by: {paper.uploader_name}</p>
-              </div>
-
-              <hr />
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDownloadButtonClick(paper);
-                }}
-                className="text-md md:text-lg lg:text-xl bg-black active:scale-95 transition-all mt-2 text-white px-3 py-2 rounded-sm cursor-pointer"
+          return (
+            <div key={paper.id}>
+              <div
+                onClick={() => handlePaperClick(paper)}
+                className="border-2 border-solid border-black p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
               >
-                Download
-              </button>
+                <div>
+                  <h1 className="lg:text-3xl text-2xl">
+                    {paper.title.length > 20
+                      ? paper.title.slice(0, 20) + "..."
+                      : paper.title}
+                  </h1>
+                </div>
+
+                <div className="flex flex-col gap-2 overflow-auto">
+                  <div className="flex gap-1 items-center flex-wrap">
+                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                      {"Class" + " " + paper.class}
+                    </p>
+                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                      {paper.subject}
+                    </p>
+                  </div>
+
+                  <div className="flex gap-1">
+                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                      {paper.exam_name}
+                    </p>
+                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                      {paper.state}
+                    </p>
+                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                      {paper.year}
+                    </p>
+                  </div>
+
+                  <div className="flex gap-1">
+                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                      {paper.page_count} Pages ·{" "}
+                    </p>
+                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                      {filesizeinmb > 0.6
+                        ? filesizeinmb + " MB"
+                        : filesizeinkb + " KB"}
+                    </p>
+                  </div>
+                </div>
+
+                <hr className="mt-auto" />
+
+                <div className="flex justify-between">
+                  <p className="text-lg lg:text-xl">
+                    By: {paper.uploader_name}
+                  </p>
+                  <p className="text-lg lg:text-xl">
+                    {new Date(paper.uploaded_at).toDateString().slice(4)}
+                  </p>
+                  <p className="text-lg lg:text-xl">
+                    {paper.download_count + " "}DL
+                  </p>
+                  <p>
+                    <HugeiconsIcon
+                      icon={Download01Icon}
+                      size={29}
+                      color="currentColor"
+                      strokeWidth={1.5}
+                      className="z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDownloadButtonClick(paper);
+                      }}
+                    />
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

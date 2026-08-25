@@ -1,5 +1,7 @@
 import { db } from "../db/mysql.js";
 import path from "path";
+import fs from "fs";
+import { PDFDocument } from "pdf-lib";
 
 export const uploadPaper = async (req, res) => {
   try {
@@ -19,6 +21,12 @@ export const uploadPaper = async (req, res) => {
         .json({ success: false, message: "You can only upload PDF files" });
     }
 
+    const pdfBytes = fs.readFileSync(req.file.path);
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+
+    const pageCount = pdfDoc.getPageCount();
+    const fileSize = req.file.size;
+
     if (!title) {
       return res
         .status(400)
@@ -28,7 +36,7 @@ export const uploadPaper = async (req, res) => {
     const filePath = `/uploads/${req.file.filename}`;
 
     const [result] = await db.query(
-      "INSERT INTO papers (uploaded_by, title, class, subject, exam_name, country, state, year, file_path) VALUES (?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO papers (uploaded_by, title, class, subject, exam_name, country, state, year, file_path, page_count, file_size) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
         req.userId,
         title,
@@ -39,6 +47,8 @@ export const uploadPaper = async (req, res) => {
         state,
         year || null,
         filePath,
+        pageCount,
+        fileSize,
       ],
     );
 
@@ -73,7 +83,7 @@ export const getPapers = async (req, res) => {
     }
 
     if (exam_name) {
-      query += "AND subject = ?";
+      query += "AND exam_name = ?";
       parameters.push(subject);
     }
 

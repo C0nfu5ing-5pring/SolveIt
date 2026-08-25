@@ -38,15 +38,15 @@ const Sidebar = ({
   ].sort();
 
   return (
-    <div className="h-[85vh] border-3 rounded-md p-5 w-[100%]">
+    <div className="h-[85vh] border-3 rounded-md p-5 w-[90%]">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl">FILTERS</h1>
+          <h1 className="text-4xl">FILTERS</h1>
 
           <hr className="border border-dashed w-full" />
 
           <div>
-            <label htmlFor="class" className="text-lg">
+            <label htmlFor="class" className="text-3xl">
               Class
             </label>
             <select
@@ -54,7 +54,7 @@ const Sidebar = ({
               id="class"
               value={classFilter}
               onChange={(e) => setClassFilter(e.target.value)}
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl"
             >
               <option value="">All Classes</option>
               {uniqueClasses.map((ans) => (
@@ -66,7 +66,7 @@ const Sidebar = ({
           </div>
 
           <div>
-            <label htmlFor="subject" className="text-xl">
+            <label htmlFor="subject" className="text-3xl">
               Subject
             </label>
             <select
@@ -74,11 +74,9 @@ const Sidebar = ({
               id="subject"
               value={subjectFilter}
               onChange={(e) => setSubjectFilter(e.target.value)}
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl"
             >
-              <option value="" className="text-lg">
-                All Subjects
-              </option>
+              <option value="">All Subjects</option>
               {uniqueSubjects.map((ans) => (
                 <option key={ans} value={ans}>
                   {ans}
@@ -88,7 +86,7 @@ const Sidebar = ({
           </div>
 
           <div>
-            <label htmlFor="exam" className="text-xl">
+            <label htmlFor="exam" className="text-3xl">
               Exam
             </label>
             &nbsp; &nbsp;
@@ -99,11 +97,9 @@ const Sidebar = ({
               onChange={(e) => {
                 setExamFilter(e.target.value);
               }}
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl"
             >
-              <option value="" className="text-lg">
-                All Exams
-              </option>
+              <option value="">All Exams</option>
               {uniqueExams.map((ans) => (
                 <option key={ans} value={ans}>
                   {ans}
@@ -113,7 +109,7 @@ const Sidebar = ({
           </div>
 
           <div>
-            <label htmlFor="year" className="text-xl">
+            <label htmlFor="year" className="text-3xl">
               Year
             </label>
             &nbsp; &nbsp;
@@ -121,12 +117,10 @@ const Sidebar = ({
               name="year"
               id="year"
               value={yearFilter}
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl"
               onChange={(e) => setYearFilter(e.target.value)}
             >
-              <option value="" className="text-lg">
-                All Years
-              </option>
+              <option value="">All Years</option>
               {uniqueYears.map((ans) => (
                 <option key={ans} value={ans}>
                   {ans}
@@ -136,19 +130,17 @@ const Sidebar = ({
           </div>
 
           <div>
-            <label htmlFor="country" className="text-xl">
+            <label htmlFor="country" className="text-3xl">
               Country
             </label>
             <select
               name="country"
               id="country"
               value={countryFilter}
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base "
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl "
               onChange={(e) => setCountryFilter(e.target.value)}
             >
-              <option value="" className="text-lg">
-                All Countries
-              </option>
+              <option value="">All Countries</option>
               {uniqueCountries.map((ans) => (
                 <option key={ans} value={ans}>
                   {ans}
@@ -158,17 +150,17 @@ const Sidebar = ({
           </div>
 
           <div>
-            <label htmlFor="state" className="text-xl">
+            <label htmlFor="state" className="text-3xl">
               State
             </label>
             <select
               name="state"
               id="state"
-              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-base"
+              className="w-full px-1 py-1 focus:outline-none border-2 rounded-sm text-xl"
               value={stateFilter}
               onChange={(e) => setStateFilter(e.target.value)}
             >
-              <option value="" className="text-lg">
+              <option value="" className="text-xl">
                 All States
               </option>
               {uniqueStates.map((ans) => {
@@ -179,8 +171,6 @@ const Sidebar = ({
             </select>
           </div>
         </div>
-
-        <hr className="border border-dashed w-full" />
       </div>
     </div>
   );
