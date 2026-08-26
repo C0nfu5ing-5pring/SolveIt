@@ -163,6 +163,10 @@ export default function UploadPage() {
                 >
                   <option value="">Select Country</option>
                   <option value="India">India</option>
+                  <option value="USA">USA</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="China">China</option>
+                  <option value="Australia">Australia</option>
                 </select>
               </div>
 
@@ -225,7 +229,9 @@ export default function UploadPage() {
                           required
                         >
                           <option value="">Select State</option>
-                          <option value="Andhra Pradesh">Andhra Pradesh</option>
+                          <option value="Arunachal Pradesh">
+                            Arunachal Pradesh
+                          </option>
                           <option value="Arunachal Pradesh">
                             Arunachal Pradesh
                           </option>
@@ -341,6 +347,535 @@ export default function UploadPage() {
                       <option value="Economic Applications">
                         Economic Applications
                       </option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Year
+                    </label>
+
+                    <input
+                      type="number"
+                      placeholder="Enter Year"
+                      value={year}
+                      min={2000}
+                      max={new Date().getFullYear()}
+                      step={1}
+                      onChange={handleOnYearChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {country === "USA" && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter title"
+                      value={title}
+                      onChange={handleOnTitleChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Exam
+                    </label>
+
+                    <select
+                      value={examName}
+                      onChange={handleOnExamNameChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    >
+                      <option value="">Select Exam</option>
+                      <option value="SAT">SAT</option>
+                      <option value="ACT">ACT</option>
+                      <option value="AP">AP</option>
+                      <option value="State Standardized Tests">
+                        State Standardized Tests
+                      </option>
+                    </select>
+                  </div>
+
+                  {examName === "State Standardized Tests" && (
+                    <div className="flex flex-col gap-5">
+                      <div className="flex flex-col gap-2">
+                        <label
+                          htmlFor="name"
+                          className="text-xl md:text-2xl lg:text-3xl"
+                        >
+                          State
+                        </label>
+                        <select
+                          value={state}
+                          onChange={handleOnStateChange}
+                          className="text-lg md:text-xl lg:text-2xl  border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                          required
+                        >
+                          <option value="">Select State</option>
+                          <option value="Alabama">Alabama</option>
+                          <option value="Alaska">Alaska</option>
+                          <option value="Assam">Arizona</option>
+                          <option value="Arkansas">Arkansas</option>
+                          <option value="California">California</option>
+                          <option value="Colorado">Colorado</option>
+                          <option value="Connecticut">Connecticut</option>
+                          <option value="Delaware">Delaware</option>
+                          <option value="Florida">Florida</option>
+                          <option value="Georgia">Georgia</option>
+                          <option value="Hawaii">Hawaii</option>
+                          <option value="Idaho">Idaho</option>
+                          <option value="Illinois">Illinois</option>
+                          <option value="Indiana">Indiana</option>
+                          <option value="Iowa">Iowa</option>
+                          <option value="Kansas">Kansas</option>
+                          <option value="Kentucky">Kentucky</option>
+                          <option value="Louisiana">Louisiana</option>
+                          <option value="Maine">Maine</option>
+                          <option value="Maryland">Maryland</option>
+                          <option value="Massachusetts">Massachusetts</option>
+                          <option value="Michigan">Michigan</option>
+                          <option value="Minnesota">Minnesota</option>
+                          <option value="Mississippi">Mississippi</option>
+                          <option value="Missouri">Missouri</option>
+                          <option value="Montana">Montana</option>
+                          <option value="Nebraska">Nebraska</option>
+                          <option value="Nevada">Nevada</option>
+                          <option value="New Hampshire">New Hampshire</option>
+                          <option value="New Jersey">New Jersey</option>
+                          <option value="New Mexico">New Mexico</option>
+                          <option value="New York">New York</option>
+                          <option value="North Carolina">North Carolina</option>
+                          <option value="North Dakota">North Dakota</option>
+                          <option value="Ohio">Ohio</option>
+                          <option value="Oklahoma">Oklahoma</option>
+                          <option value="Oregon">Oregon</option>
+                          <option value="Pennsylvania">Pennsylvania</option>
+                          <option value="Rhode Island">Rhode Island</option>
+                          <option value="South Carolina">South Carolina</option>
+                          <option value="South Dakota">South Dakota</option>
+                          <option value="Tennessee">Tennessee</option>
+                          <option value="Texas">Texas</option>
+                          <option value="Utah">Utah</option>
+                          <option value="Vermont">Vermont</option>
+                          <option value="Viginia">Viginia</option>
+                          <option value="Washington">Washington</option>
+                          <option value="West Virginia">West Virginia</option>
+                          <option value="Wisconin">Wisconin</option>
+                          <option value="Wyoming">Wyoming</option>
+                          <option value="Andhra Pradesh">Alabama</option>
+                        </select>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Class
+                    </label>
+
+                    <select
+                      value={className}
+                      onChange={handleOnClassChange}
+                      required
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                    >
+                      <option value="">Select Class</option>
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10</option>
+                      <option value="11">Class 11</option>
+                      <option value="12">Class 12</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Subject
+                    </label>
+
+                    <select
+                      value={subject}
+                      onChange={handleOnSubjectChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm "
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      <option value="Math">Math</option>
+                      <option value="Biology">Biology</option>
+                      <option value="Chemistry">Chemistry</option>
+                      <option value="Physics">Physics</option>
+                      <option value="English Literature">
+                        English Literature
+                      </option>
+                      <option value="US History">US History</option>
+                      <option value="World History">World History</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Economics">Economics</option>
+                      <option value="Psychology">Psychology</option>
+                      <option value="Statistics">Statistics</option>
+                      <option value="Information Practices">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Year
+                    </label>
+
+                    <input
+                      type="number"
+                      placeholder="Enter Year"
+                      value={year}
+                      min={2000}
+                      max={new Date().getFullYear()}
+                      step={1}
+                      onChange={handleOnYearChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {country === "United Kingdom" && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter title"
+                      value={title}
+                      onChange={handleOnTitleChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Exam
+                    </label>
+
+                    <select
+                      value={examName}
+                      onChange={handleOnExamNameChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    >
+                      <option value="">Select Exam</option>
+                      <option value="GCSE">GCSE</option>
+                      <option value="A-Levels">A-Levels</option>
+                      <option value="BTEC">BTEC</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Class
+                    </label>
+
+                    <select
+                      value={className}
+                      onChange={handleOnClassChange}
+                      required
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                    >
+                      <option value="">Select Class</option>
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10</option>
+                      <option value="11">Class 11</option>
+                      <option value="12">Class 12</option>
+                      <option value="13">Class 13 (A-Levels)</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Subject
+                    </label>
+
+                    <select
+                      value={subject}
+                      onChange={handleOnSubjectChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm "
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Biology">Biology</option>
+                      <option value="Chemistry">Chemistry</option>
+                      <option value="Physics">Physics</option>
+                      <option value="English Language">English Language</option>
+                      <option value="History">History</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Geography">Geography</option>
+                      <option value="Economics">Economics</option>
+                      <option value="Business Studies">Business Studies</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Year
+                    </label>
+
+                    <input
+                      type="number"
+                      placeholder="Enter Year"
+                      value={year}
+                      min={2000}
+                      max={new Date().getFullYear()}
+                      step={1}
+                      onChange={handleOnYearChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {country === "China" && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter title"
+                      value={title}
+                      onChange={handleOnTitleChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Exam
+                    </label>
+
+                    <select
+                      value={examName}
+                      onChange={handleOnExamNameChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    >
+                      <option value="">Select Exam</option>
+                      <option value="Gaokao">Gaokao</option>
+                      <option value="Zhongkao">Zhongkao</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Class
+                    </label>
+
+                    <select
+                      value={className}
+                      onChange={handleOnClassChange}
+                      required
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                    >
+                      <option value="">Select Class</option>
+                      <option value="12">Class 12</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Subject
+                    </label>
+
+                    <select
+                      value={subject}
+                      onChange={handleOnSubjectChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm "
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Biology">Biology</option>
+                      <option value="Chemistry">Chemistry</option>
+                      <option value="Physics">Physics</option>
+                      <option value="English">English</option>
+                      <option value="Modern History">Modern History</option>
+                      <option value="Legal Studies">Legal Studies</option>
+                      <option value="Economics">Economics</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Year
+                    </label>
+
+                    <input
+                      type="number"
+                      placeholder="Enter Year"
+                      value={year}
+                      min={2000}
+                      max={new Date().getFullYear()}
+                      step={1}
+                      onChange={handleOnYearChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {country === "Australia" && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter title"
+                      value={title}
+                      onChange={handleOnTitleChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Exam
+                    </label>
+
+                    <select
+                      value={examName}
+                      onChange={handleOnExamNameChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                      required
+                    >
+                      <option value="">Select Exam</option>
+                      <option value="HSC (New South Wales)">
+                        HSC (New South Wales)
+                      </option>
+                      <option value="VCE (Victoria)">VCE (Victoria)</option>
+                      <option value="QCE (Queensland)">QCE (Queensland)</option>
+                      <option value="WACE (Western Australia)">
+                        WACE (Western Australia)
+                      </option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Class
+                    </label>
+
+                    <select
+                      value={className}
+                      onChange={handleOnClassChange}
+                      required
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer  px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm"
+                    >
+                      <option value="">Select Class</option>
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10</option>
+                      <option value="11">Class 11</option>
+                      <option value="12">Class 12</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xl md:text-2xl lg:text-3xl"
+                    >
+                      Subject
+                    </label>
+
+                    <select
+                      value={subject}
+                      onChange={handleOnSubjectChange}
+                      className="text-lg md:text-xl lg:text-2xl  border cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none focus:border-[1.5] rounded-sm "
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Biology">Biology</option>
+                      <option value="Chemistry">Chemistry</option>
+                      <option value="Physics">Physics</option>
+                      <option value="English">English</option>
+                      <option value="History">History</option>
+                      <option value="Geography">Geography</option>
+                      <option value="Economics">Economics</option>
                     </select>
                   </div>
 
