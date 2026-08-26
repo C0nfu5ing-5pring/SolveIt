@@ -3,12 +3,58 @@
 @font-face {
   font-family: kiddos;
   src: url("/fonts/KIdDOS.ttf");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
 }
 
 * {
-  font-family: kiddos;
+  font-family: kiddos, sans-serif;
 }
 
 body {
   background-color: white;
+}
+
+.sketchy-border {
+  position: relative;
+  border: none !important;
+}
+
+.sketchy-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 3px solid black;
+  border-radius: inherit;
+  filter: url("#sketch-filter");
+}
+
+.sketchy-divider {
+  border: none;
+  height: 2px;
+  background: black;
+  filter: url("#sketch-filter");
+}
+
+.sketchy-toast {
+  position: relative !important;
+  border: none !important;
+}
+
+.sketchy-toast::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid black;
+  border-radius: inherit;
+  pointer-events: none;
+  filter: url("#sketch-filter");
+  z-index: 0;
+}
+
+.sketchy-toast > * {
+  position: relative;
+  z-index: 1;
 }

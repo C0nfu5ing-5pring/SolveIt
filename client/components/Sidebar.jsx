@@ -38,12 +38,12 @@ const Sidebar = ({
   ].sort();
 
   return (
-    <div className="h-[85vh] border-3 rounded-md p-5 w-[90%]">
+    <div className="h-[85vh] sketchy-border rounded-md p-5 w-[100%] lg:w-[90%]">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl">FILTERS</h1>
 
-          <hr className="border border-dashed w-full" />
+          <hr className="sketchy-divider w-full" />
 
           <div>
             <label htmlFor="class" className="text-3xl">

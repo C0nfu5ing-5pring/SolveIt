@@ -25,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <div className="border-3 border-solid border-black py-3 px-5 rounded-md relative">
+    <div className="sketchy-border py-3 px-5 rounded-md relative">
       <div className="flex items-center justify-between">
         <h1 className="text-4xl lg:text-5xl">Solve It</h1>
 
@@ -53,7 +53,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-2xl lg:text-2xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
+                className="text-2xl lg:text-2xl bg-red-400 hover:bg-red-500 cursor-pointer sketchy-border transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:text-white active:scale-90"
               >
                 Log out
               </button>
@@ -95,7 +95,7 @@ const Header = () => {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden absolute left-0 p-6 top-full w-full grid grid-cols-2 gap-2 mt-2 pt-4 border-2 shadow-lg z-67 border-solid rounded-lg bg-[#E1D9D1]">
+        <div className="md:hidden sketchy-border relative p-6 w-full grid grid-cols-2 gap-2 mt-3 pt-4 rounded-lg bg-white">
           {user && (
             <>
               <Link

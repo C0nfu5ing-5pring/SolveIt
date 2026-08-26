@@ -19,6 +19,31 @@ export default function RootLayout({
         className="h-screen overflow-hidden flex flex-col p-5 gap-5"
         suppressHydrationWarning
       >
+        <svg className="sketch-filter-svg" aria-hidden="true" focusable="false">
+          <filter
+            id="sketch-filter"
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.05"
+              numOctaves="3"
+              result="noise"
+            />
+
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale="3"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </svg>
+
         <Header />
         {children}
 
@@ -27,17 +52,16 @@ export default function RootLayout({
           autoClose={3000}
           hideProgressBar
           newestOnTop
-          closeOnClick
-          rtl={false}
           draggable
           pauseOnHover
-          theme="dark"
           transition={Slide}
-          toastStyle={{
-            background: "#1a1a1a",
-            borderRadius: "12px",
-            padding: "12px 12px",
+          style={{
+            top: "20px",
+            right: "20px",
           }}
+          toastClassName={
+            "bg-white! border-2! border-black! rounded-xl! shadow-none! text-black! sketchy-border"
+          }
         />
       </body>
     </html>

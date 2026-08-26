@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FilterIcon, Download01Icon } from "@hugeicons/core-free-icons";
 import { toast } from "react-toastify";
+import CustomToast from "../../components/CustomToast.jsx";
 
 export default function BrowsePage() {
   const [papers, setPapers] = useState([]);
@@ -93,8 +94,9 @@ export default function BrowsePage() {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
+      toast(<CustomToast msg="Downloaded successfully" />);
     } catch (err) {
-      toast.error("Error during downloading :(", err);
+      toast(<CustomToast msg="Error during downloading :(" />);
       console.error("Error during downloading :(", err);
     }
   };
@@ -115,7 +117,7 @@ export default function BrowsePage() {
     <div className="flex flex-col md:flex-row gap-5 h-full min-h-0">
       <button
         onClick={() => setFiltersOpen((prev) => !prev)}
-        className="md:hidden text-xl flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
+        className="md:hidden text-xl sketchy-border flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
       >
         <HugeiconsIcon icon={FilterIcon} size={25} />
         {filtersOpen ? "Hide Filters" : "Show Filters"}
@@ -148,7 +150,7 @@ export default function BrowsePage() {
             <div key={paper.id}>
               <div
                 onClick={() => handlePaperClick(paper)}
-                className="border-2 border-solid border-black p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
+                className="sketchy-border border-black p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
               >
                 <div>
                   <h1 className="lg:text-3xl text-2xl">
@@ -160,31 +162,31 @@ export default function BrowsePage() {
 
                 <div className="flex flex-col gap-2 overflow-auto">
                   <div className="flex gap-1 items-center flex-wrap">
-                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {"Class" + " " + paper.class}
                     </p>
-                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.subject}
                     </p>
                   </div>
 
                   <div className="flex gap-1">
-                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.exam_name}
                     </p>
-                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.state}
                     </p>
-                    <p className="text-xl lg:text-2xl  border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.year}
                     </p>
                   </div>
 
                   <div className="flex gap-1">
-                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
-                      {paper.page_count} Pages ·{" "}
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                      {paper.page_count} Pages{" "}
                     </p>
-                    <p className="text-xl lg:text-2xl border px-2 rounded-full whitespace-nowrap">
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {filesizeinmb > 0.6
                         ? filesizeinmb + " MB"
                         : filesizeinkb + " KB"}
