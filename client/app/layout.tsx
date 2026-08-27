@@ -19,7 +19,11 @@ export default function RootLayout({
         className="h-screen overflow-hidden flex flex-col p-5 gap-5"
         suppressHydrationWarning
       >
-        <svg className="sketch-filter-svg" aria-hidden="true" focusable="false">
+        <svg
+          className="sketch-filter-svg hidden"
+          aria-hidden="true"
+          focusable="false"
+        >
           <filter
             id="sketch-filter"
             x="-20%"
@@ -37,7 +41,7 @@ export default function RootLayout({
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
-              scale="3"
+              scale="4"
               xChannelSelector="R"
               yChannelSelector="G"
             />
@@ -49,7 +53,7 @@ export default function RootLayout({
 
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           hideProgressBar
           newestOnTop
           draggable

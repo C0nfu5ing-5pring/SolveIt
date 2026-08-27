@@ -150,7 +150,7 @@ export default function BrowsePage() {
             <div key={paper.id}>
               <div
                 onClick={() => handlePaperClick(paper)}
-                className="sketchy-border border-black p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
+                className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
               >
                 <div>
                   <h1 className="lg:text-3xl text-2xl">
