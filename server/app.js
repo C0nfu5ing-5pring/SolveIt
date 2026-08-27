@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import papersRoutes from "./routes/paper.routes.js";
+import reportsRoutes from "./routes/reports.routes.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/papers", papersRoutes);
+app.use("/api/reports", reportsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });

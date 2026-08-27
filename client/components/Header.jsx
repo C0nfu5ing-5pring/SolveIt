@@ -29,7 +29,7 @@ const Header = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-4xl lg:text-5xl">Solve It</h1>
 
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden md:flex items-center gap-5 ">
           {user ? (
             <>
               <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
@@ -41,7 +41,7 @@ const Header = () => {
               </p>
 
               <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
-                <Link href="/contact">Contact</Link>
+                <Link href="/report">Report a bug</Link>
               </p>
 
               <p className="text-2xl lg:text-3xl font-bold">
@@ -53,7 +53,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-2xl lg:text-2xl bg-red-400 hover:bg-red-500 cursor-pointer sketchy-border transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:text-white active:scale-90"
+                className="text-2xl lg:text-2xl bg-[#F05A5A] hover:bg-[#ea3737] cursor-pointer sketchy-border transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:text-white active:scale-90"
               >
                 Log out
               </button>
@@ -62,14 +62,14 @@ const Header = () => {
             <>
               <Link
                 href="/login"
-                className="text-2xl lg:text-3xl cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90"
+                className="text-2xl lg:text-3xl hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-md px-2 py-1 active:scale-90"
               >
                 <p>Log in</p>
               </Link>
 
               <Link
                 href="/signup"
-                className="text-2xl lg:text-3xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90"
+                className="text-2xl lg:text-3xl bg-[#171717] hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-md px-2 py-1 text-white hover:text-black active:scale-90"
               >
                 <p>Sign up</p>
               </Link>
@@ -83,19 +83,19 @@ const Header = () => {
           aria-label="Toggle menu"
         >
           <span
-            className={`block w-6 h-0.5 bg-black transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+            className={`block w-6 h-0.5 bg-[#171717] transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
           />
           <span
-            className={`block w-6 h-0.5 bg-black transition-all ${menuOpen ? "opacity-0" : ""}`}
+            className={`block w-6 h-0.5 bg-[#171717] transition-all ${menuOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`block w-6 h-0.5 bg-black transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            className={`block w-6 h-0.5 bg-[#171717] transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
           />
         </button>
       </div>
 
       {menuOpen && (
-        <div className="md:hidden sketchy-border relative p-6 w-full grid grid-cols-2 gap-2 mt-3 pt-4 rounded-lg bg-white">
+        <div className="md:hidden  sketchy-border relative p-6 w-full grid grid-cols-2 gap-2 mt-3 pt-4 rounded-lg bg-[#fffef9]">
           {user && (
             <>
               <Link
@@ -116,11 +116,11 @@ const Header = () => {
             </>
           )}
           <Link
-            href="/contact"
+            href="/report"
             className="text-2xl py-1"
             onClick={() => setMenuOpen(false)}
           >
-            Contact
+            Report a bug
           </Link>
           {user ? (
             <>
@@ -133,7 +133,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-2xl text-left cursor-pointer transition-all"
+                className="text-2xl text-left text-[#F05A5A] cursor-pointer transition-all"
               >
                 Log out
               </button>
@@ -143,14 +143,14 @@ const Header = () => {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-black hover:text-white active:scale-90 w-fit"
+                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-[#171717] hover:text-[#fffef9] active:scale-90 w-fit"
               >
                 Log in
               </Link>
               <Link
                 href="/signup"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-black text-white active:scale-90 w-fit"
+                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-[#171717] text-[#fffef9] active:scale-90 w-fit"
               >
                 Sign up
               </Link>
