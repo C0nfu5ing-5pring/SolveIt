@@ -978,7 +978,7 @@ export default function UploadPage() {
                       Drag and drop here or click to select file
                     </p>
                     <p className="text-lg md:text-xl lg:text-2xl">
-                      Max file size - 65MB
+                      Max file size - 200MB
                     </p>
                   </>
                 )}
