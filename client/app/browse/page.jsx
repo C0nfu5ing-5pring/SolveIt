@@ -158,6 +158,13 @@ export default function BrowsePage() {
                       ? paper.title.slice(0, 20) + "..."
                       : paper.title}
                   </h1>
+                  {paper.description !== null && (
+                    <p className="text-lg">
+                      {paper.description.length > 40
+                        ? paper.description.slice(0, 40) + "..."
+                        : paper.description}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -175,8 +182,15 @@ export default function BrowsePage() {
                       {paper.exam_name}
                     </p>
 
+                    {(paper.exam_name === "State Boards" ||
+                      paper.exam_name === "State Standardized Tests") && (
+                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                        {paper.state}
+                      </p>
+                    )}
+
                     <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                      {paper.state}
+                      {paper.type}
                     </p>
 
                     <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">

@@ -7,6 +7,8 @@ export const uploadPaper = async (req, res) => {
   try {
     const {
       title,
+      description,
+      type,
       class: className,
       subject,
       exam_name,
@@ -36,10 +38,12 @@ export const uploadPaper = async (req, res) => {
     const filePath = `/uploads/${req.file.filename}`;
 
     const [result] = await db.query(
-      "INSERT INTO papers (uploaded_by, title, class, subject, exam_name, country, state, year, file_path, page_count, file_size) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO papers (uploaded_by, title, description, type class, subject, exam_name, country, state, year, file_path, page_count, file_size) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
         req.userId,
         title,
+        description || null,
+        type,
         className,
         subject,
         exam_name,
