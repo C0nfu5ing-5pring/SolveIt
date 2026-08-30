@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "../components/Header.jsx";
 import "./globals.css";
 import { ToastContainer, Slide } from "react-toastify";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Solve it",
@@ -67,6 +68,7 @@ export default function RootLayout({
             "bg-white! border-2! border-black! rounded-xl! shadow-none! text-black! sketchy-border"
           }
         />
+        <Analytics />
       </body>
     </html>
   );
