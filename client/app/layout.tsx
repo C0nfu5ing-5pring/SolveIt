@@ -14,9 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html lang="en" className="antialiased" suppressHydrationWarning>
       <body
-        className="h-screen overflow-hidden flex flex-col p-5 gap-5"
+        className="min-h-screen flex flex-col p-5 gap-5 overflow-x-hidden overflow-y-auto"
         suppressHydrationWarning
       >
         <svg

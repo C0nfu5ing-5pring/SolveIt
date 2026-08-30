@@ -114,7 +114,7 @@ export default function BrowsePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-5 h-full min-h-screen">
+    <div className="flex flex-col md:flex-row gap-5 min-h-screen md:h-screen md:overflow-hidden">
       <button
         onClick={() => setFiltersOpen((prev) => !prev)}
         className="md:hidden text-xl sketchy-border flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
@@ -141,16 +141,16 @@ export default function BrowsePage() {
         />
       </div>
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 flex-1 md:overflow-y-auto overflow-x-hidden">
+      <div className="w-full md:flex-1 md:columns-2 lg:columns-3 xl:columns-4 md:gap-4 md:h-full md:overflow-y-auto md:pr-2">
         {filteredPapersss.map((paper) => {
           const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
           const filesizeinkb = (paper.file_size / 1024).toFixed(1);
 
           return (
-            <div key={paper.id}>
+            <div key={paper.id} className="w-full mb-4 md:break-inside-avoid">
               <div
                 onClick={() => handlePaperClick(paper)}
-                className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative mb-4 break-inside-avoid"
+                className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative"
               >
                 <div>
                   <h1 className="lg:text-3xl text-2xl">
@@ -160,7 +160,7 @@ export default function BrowsePage() {
                   </h1>
                 </div>
 
-                <div className="flex flex-col gap-2 overflow-auto">
+                <div className="flex flex-col gap-2">
                   <div className="flex gap-1 items-center flex-wrap">
                     <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {"Class" + " " + paper.class}
@@ -170,19 +170,21 @@ export default function BrowsePage() {
                     </p>
                   </div>
 
-                  <div className="flex gap-1">
-                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
+                  <div className="flex gap-1 flex-wrap">
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.exam_name}
                     </p>
-                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
+
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.state}
                     </p>
-                    <p className="text-xl lg:text-2xl  sketchy-border px-2 rounded-full whitespace-nowrap">
+
+                    <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.year}
                     </p>
                   </div>
 
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap">
                     <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
                       {paper.page_count} Pages{" "}
                     </p>
