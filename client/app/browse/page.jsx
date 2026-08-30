@@ -114,7 +114,7 @@ export default function BrowsePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-5 h-full min-h-0">
+    <div className="flex flex-col md:flex-row gap-5 h-full min-h-screen">
       <button
         onClick={() => setFiltersOpen((prev) => !prev)}
         className="md:hidden text-xl sketchy-border flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
@@ -141,7 +141,7 @@ export default function BrowsePage() {
         />
       </div>
 
-      <div className="columns-1 sm:columns-1 md:columns-2 lg:columns-3 xl:columnst-4 gap-4 overflow-y-auto overflow-x-hidden flex-1">
+      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 flex-1 md:overflow-y-auto overflow-x-hidden">
         {filteredPapersss.map((paper) => {
           const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
           const filesizeinkb = (paper.file_size / 1024).toFixed(1);
