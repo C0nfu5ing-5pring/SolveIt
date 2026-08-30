@@ -198,17 +198,22 @@ export default function BrowsePage() {
 
                 <hr className="mt-auto" />
 
-                <div className="flex justify-between">
-                  <p className="text-lg lg:text-xl">
+                <div className="flex justify-between gap-2">
+                  <p className="text-lg lg:text-xl underline">
                     By: {paper.uploader_name}
                   </p>
                   <p className="text-lg lg:text-xl">
-                    {new Date(paper.uploaded_at).toDateString().slice(4)}
+                    {new Date(paper.uploaded_at).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+
+                      month: "2-digit",
+
+                      year: "2-digit",
+                    })}
                   </p>
-                  <p className="text-lg lg:text-xl">
-                    {paper.download_count + " "}DL
-                  </p>
-                  <p>
+                  <p className="flex items-center gap-2 text-xl">
+                    {paper.download_count + " "}
+
                     <HugeiconsIcon
                       icon={Download01Icon}
                       size={29}
