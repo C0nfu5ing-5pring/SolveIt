@@ -353,21 +353,21 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="h-[85vh] flex items-center justify-center md:px-10 lg:px-15 lg:py-5">
-      <div className="w-full p-5 md:p-7 lg:p-8">
+    <div className="min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center px-4 py-6 md:px-8 lg:px-10">
+      <div className="w-full max-w-3xl">
         <form onSubmit={handleFormSubmit}>
           <div className="flex flex-col gap-3">
-            <h1 className="text-center text-3xl md:text-4xl lg:text-8xl">
+            <h1 className="text-center text-5xl md:text-6xl lg:text-8xl">
               Upload it!!!!!!!!
             </h1>
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <div className="grid grid-cols-2 gap-x-10 gap-y-3">
-              <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+              <div className="flex flex-col gap-1">
                 <label
                   htmlFor="country"
-                  className="text-xl md:text-2xl lg:text-3xl"
+                  className="text-sm md:text-base lg:text-lg"
                 >
                   Country
                 </label>
@@ -376,7 +376,7 @@ export default function UploadPage() {
                     id="country"
                     value={country}
                     onChange={handleOnCountryChange}
-                    className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer py-2 lg:px-3 lg:py-3 focus:outline-none"
+                    className="text-sm md:text-base lg:text-lg w-full cursor-pointer py-1.5 px-2 lg:py-2 focus:outline-none"
                   >
                     <option value="">Select Country</option>
                     {Object.keys(countries).map((c) => (
@@ -390,10 +390,10 @@ export default function UploadPage() {
 
               {config && (
                 <>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="title"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Title
                     </label>
@@ -404,16 +404,16 @@ export default function UploadPage() {
                         placeholder="Enter title"
                         value={title}
                         onChange={handleOnTitleChange}
-                        className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="exam"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Exam
                     </label>
@@ -422,7 +422,7 @@ export default function UploadPage() {
                         id="exam"
                         value={examName}
                         onChange={handleOnExamNameChange}
-                        className="text-lg w-full md:text-xl lg:text-2xl cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                         required
                       >
                         <option value="">Select Exam</option>
@@ -436,10 +436,10 @@ export default function UploadPage() {
                   </div>
 
                   {showState && (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                       <label
                         htmlFor="state"
-                        className="text-xl md:text-2xl lg:text-3xl"
+                        className="text-sm md:text-base lg:text-lg"
                       >
                         State
                       </label>
@@ -448,7 +448,7 @@ export default function UploadPage() {
                           id="state"
                           value={state}
                           onChange={handleOnStateChange}
-                          className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none"
+                          className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                           required
                         >
                           <option value="">Select State</option>
@@ -462,10 +462,10 @@ export default function UploadPage() {
                     </div>
                   )}
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="class"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Class
                     </label>
@@ -475,7 +475,7 @@ export default function UploadPage() {
                         value={className}
                         onChange={handleOnClassChange}
                         required
-                        className="text-lg w-full md:text-xl lg:text-2xl cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                       >
                         <option value="">Select Class</option>
                         {config.classOptions.map((opt) => (
@@ -487,10 +487,10 @@ export default function UploadPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="subject"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Subject
                     </label>
@@ -499,7 +499,7 @@ export default function UploadPage() {
                         id="subject"
                         value={subject}
                         onChange={handleOnSubjectChange}
-                        className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                         required
                       >
                         <option value="">Select Subject</option>
@@ -512,10 +512,10 @@ export default function UploadPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="type"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Type
                     </label>
@@ -524,7 +524,7 @@ export default function UploadPage() {
                         id="type"
                         value={type}
                         onChange={handleOnTypeChange}
-                        className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer px-1 py-2 lg:px-3 lg:py-3 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                         required
                       >
                         <option value="">Select Type</option>
@@ -537,10 +537,10 @@ export default function UploadPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <label
                       htmlFor="year"
-                      className="text-xl md:text-2xl lg:text-3xl"
+                      className="text-sm md:text-base lg:text-lg"
                     >
                       Year
                     </label>
@@ -554,7 +554,7 @@ export default function UploadPage() {
                         max={new Date().getFullYear()}
                         step={1}
                         onChange={handleOnYearChange}
-                        className="text-lg w-full md:text-xl lg:text-2xl cursor-pointer px-1 py-1 lg:px-3 lg:py-2 focus:outline-none"
+                        className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none"
                         required
                       />
                     </div>
@@ -564,10 +564,10 @@ export default function UploadPage() {
             </div>
 
             {config && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 <label
                   htmlFor="description"
-                  className="text-xl md:text-2xl lg:text-3xl"
+                  className="text-sm md:text-base lg:text-lg"
                 >
                   Description
                 </label>
@@ -578,14 +578,14 @@ export default function UploadPage() {
                     value={description}
                     onChange={handleOnDescriptionChange}
                     rows={3}
-                    className="text-lg md:text-xl lg:text-2xl w-full cursor-pointer px-2 py-2 lg:px-3 lg:py-2 focus:outline-none resize-none"
+                    className="text-sm md:text-base lg:text-lg w-full cursor-pointer px-2 py-1.5 lg:py-2 focus:outline-none resize-none"
                   />
                 </div>
               </div>
             )}
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-xl md:text-2xl lg:text-3xl">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="name" className="text-sm md:text-base lg:text-lg">
                 File
               </label>
 
@@ -594,16 +594,16 @@ export default function UploadPage() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                className={`flex flex-col py-5 items-center justify-center gap-2 border-2 border-dashed rounded-sm cursor-pointer transition-all ${isDragging ? "border-black bg-gray-100" : "border-black"}`}
+                className={`flex flex-col py-4 items-center justify-center gap-1 border-2 border-dashed rounded-sm cursor-pointer transition-all ${isDragging ? "border-black bg-gray-100" : "border-black"}`}
               >
                 {file ? (
-                  <p className="text-lg md:text-xl lg:text-2xl">{file.name}</p>
+                  <p className="text-sm md:text-base lg:text-lg">{file.name}</p>
                 ) : (
                   <>
-                    <p className="text-lg md:text-xl lg:text-2xl">
+                    <p className="text-sm md:text-base lg:text-lg text-center px-2">
                       Drag and drop here or click to select file
                     </p>
-                    <p className="text-lg md:text-xl lg:text-2xl">
+                    <p className="text-xs md:text-sm lg:text-base text-gray-500">
                       Max file size - 50MB
                     </p>
                   </>
@@ -621,7 +621,7 @@ export default function UploadPage() {
             <button
               type="submit"
               disabled={loading}
-              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 text-black px-3 py-2 rounded-sm cursor-pointer"
+              className="text-sm md:text-base lg:text-lg sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 text-black px-4 py-2 rounded-sm cursor-pointer"
             >
               {loading ? "Uploading..." : "Upload"}
             </button>
