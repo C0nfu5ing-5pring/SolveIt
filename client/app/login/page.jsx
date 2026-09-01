@@ -111,7 +111,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 px-6 py-2 rounded-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Logging in" : "Log in"}
             </button>

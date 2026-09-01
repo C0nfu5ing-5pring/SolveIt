@@ -157,7 +157,7 @@ const Page = () => {
           <button
             type="submit"
             disabled={loading}
-            className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-sm cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Reporting..." : "Report"}
           </button>
