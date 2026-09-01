@@ -38,7 +38,7 @@ const Sidebar = ({
   ].sort();
 
   return (
-    <div className="h-[85vh] sketchy-border rounded-md p-5 w-[100%] lg:w-[90%]">
+    <div className="sketchy-border rounded-xl p-5 w-full lg:w-[100%]  ">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl">FILTERS</h1>
