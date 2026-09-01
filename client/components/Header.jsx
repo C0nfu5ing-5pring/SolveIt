@@ -25,9 +25,11 @@ const Header = () => {
   };
 
   return (
-    <div className="sketchy-border py-3 px-5 rounded-md relative">
+    <div className="sketchy-border py-3 px-5 rounded-xl relative ">
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl lg:text-5xl">Solve It</h1>
+        <a href="/browse" className="text-4xl lg:text-5xl">
+          Solve It
+        </a>
 
         <div className="hidden md:flex items-center gap-5 ">
           {user ? (
@@ -53,7 +55,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-2xl lg:text-2xl bg-[#F05A5A] hover:bg-[#ea3737] cursor-pointer sketchy-border transition-all border-[1.5] border-black rounded-md px-2 py-1 hover:text-white active:scale-90"
+                className="text-2xl lg:text-2xl bg-[#F05A5A] hover:bg-[#ea3737] cursor-pointer sketchy-border transition-all border-[1.5] border-black rounded-xl px-2 py-1 hover:text-white active:scale-90"
               >
                 Log out
               </button>
@@ -62,14 +64,14 @@ const Header = () => {
             <>
               <Link
                 href="/login"
-                className="text-2xl lg:text-3xl hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-md px-2 py-1 active:scale-90"
+                className="text-2xl lg:text-3xl hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-xl px-2 py-1 active:scale-90"
               >
                 <p>Log in</p>
               </Link>
 
               <Link
                 href="/signup"
-                className="text-2xl lg:text-3xl bg-[#171717] hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-md px-2 py-1 text-white hover:text-black active:scale-90"
+                className="text-2xl lg:text-3xl bg-[#171717] hover:bg-[#9EDC7A] cursor-pointer sketchy-border transition-all rounded-xl px-2 py-1 text-white hover:text-black active:scale-90"
               >
                 <p>Sign up</p>
               </Link>
@@ -95,7 +97,7 @@ const Header = () => {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden  sketchy-border relative p-6 w-full grid grid-cols-2 gap-2 mt-3 pt-4 rounded-lg bg-[#fffef9]">
+        <div className="md:hidden  sketchy-border relative p-6 w-full grid grid-cols-2 gap-2 mt-3 pt-4 rounded-xl bg-[#fffef9]">
           {user && (
             <>
               <Link
@@ -143,14 +145,14 @@ const Header = () => {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] rounded-md px-2 py-1 hover:bg-[#171717] hover:text-[#fffef9] active:scale-90 w-fit"
+                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] rounded-xl px-2 py-1 hover:bg-[#171717] hover:text-[#fffef9] active:scale-90 w-fit"
               >
                 Log in
               </Link>
               <Link
                 href="/signup"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] border-black rounded-md px-2 py-1 bg-[#171717] text-[#fffef9] active:scale-90 w-fit"
+                className="text-2xl sketchy-border cursor-pointer transition-all border-[1.5] border-black rounded-xl px-2 py-1 bg-[#171717] text-[#fffef9] active:scale-90 w-fit"
               >
                 Sign up
               </Link>
