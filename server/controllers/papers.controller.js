@@ -147,3 +147,26 @@ export const downloadPaper = async (req, res) => {
       .json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const getPaperById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [papers] = await db.query(
+      "SELECT papers.*, users.name AS uploader_name FROM papers LEFT JOIN users ON papers.uploaded_by = users.id WHERE papers.id = ?",
+      [id],
+    );
+
+    if (papers.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Someone tore the paper lol" });
+    }
+    return res.json({ success: true, paper: papers[0] });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Someone tore the paper lol" });
+  }
+};
