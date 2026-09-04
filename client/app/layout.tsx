@@ -5,7 +5,8 @@ import { ToastContainer, Slide } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Solve it",
-  description: "PYQs and all",
+  description:
+    "It's a website for students to get PYQs for the examinations they are preparing for. It's free unlike some other websites that force users to upload a few documents in order to download a PDF or smthng",
 };
 
 export default function RootLayout({

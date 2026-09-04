@@ -49,7 +49,6 @@ export default function PaperPage() {
       );
 
       if (!res.ok) {
-        toast.error("Failed to download the file :(");
         throw new Error("Failed to download the file :(");
       }
 
