@@ -96,3 +96,24 @@ export const login = async (req, res) => {
       .json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const getMe = async (req, res) => {
+  try {
+    const [users] = await db.query(
+      "SELECT id, name, email, avatar_config, created_at FROM users WHERE id = ?",
+      [req.userId],
+    );
+
+    if (users.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    return res.json({ success: true, user: users[0] });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
+  }
+};

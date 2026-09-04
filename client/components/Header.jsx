@@ -45,6 +45,9 @@ const Header = () => {
               <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
                 <Link href="/report">Report a bug</Link>
               </p>
+              <p className="text-2xl lg:text-3xl cursor-pointer transition-all hover:underline hover:underline-offset-8">
+                <Link href="/settings">Settings</Link>
+              </p>
 
               <p className="text-2xl lg:text-3xl font-bold">
                 Hi,{" "}
@@ -123,6 +126,13 @@ const Header = () => {
             onClick={() => setMenuOpen(false)}
           >
             Report a bug
+          </Link>
+          <Link
+            href="/settings"
+            className="text-2xl py-1"
+            onClick={() => setMenuOpen(false)}
+          >
+            Settings
           </Link>
           {user ? (
             <>
