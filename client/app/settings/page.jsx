@@ -1,6 +1,45 @@
 "use client";
+import { useState, useEffect } from "react";
 
 const page = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+        const data = await res.json();
+        if (data.success) {
+          setUser(data.user);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center mt-10">Loading...</p>;
+  }
+
+  if (!user) {
+    return <p className="text-center mt-10">Please log in to view settings</p>;
+  }
+
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+
   return (
     <div className="h-[83vh] flex flex-col lg:px-5 gap-5">
       <div>
@@ -18,9 +57,16 @@ const page = () => {
             </button>
 
             <div className="flex flex-col lg:gap-2 ">
-              <p className="text-xl">Name: Deep Vasava</p>
-              <p className="text-xl">Email: deepvasava@gmail.com</p>
-              <p className="text-xl">Joined</p>
+              <p className="text-xl">Name: {user.name}</p>
+              <p className="text-xl">Email: {user.email}</p>
+              <p className="text-xl">
+                Joined:{" "}
+                {new Date(user.created_at).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
+              </p>
             </div>
           </div>
         </div>
@@ -31,7 +77,7 @@ const page = () => {
           <div className="flex flex-col gap-1 lg:gap-2 ">
             <div className="flex justify-between">
               <p className="text-xl">Email</p>
-              <p className="text-xl">deepvasava@gmail.com</p>
+              <p className="text-xl">{user.email}</p>
             </div>
             <hr className="sketchy-divider" />
             <div className="flex justify-between">
