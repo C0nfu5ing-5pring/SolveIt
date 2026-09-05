@@ -133,8 +133,12 @@ const page = () => {
       const data = await res.json();
 
       if (data.success) {
+        toast(<CustomToast msg="Account deleted successfully" />);
         localStorage.removeItem("token");
-        window.location.href = "/";
+        localStorage.removeItem("user");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
       } else {
         toast(<CustomToast msg={data.message} />);
       }
