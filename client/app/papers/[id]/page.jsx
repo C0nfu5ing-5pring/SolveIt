@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import CustomToast from "../../../components/CustomToast.jsx";
+import Image from "next/image.js";
+import { notFound } from "../../public/images/404.png";
 
 export default function PaperPage() {
   const { id } = useParams();
@@ -69,11 +71,26 @@ export default function PaperPage() {
   };
 
   if (loading) {
-    return <p className="text-center mt-10">Loading paper...</p>;
+    return <p className="text-center text-4xl mt-10">Loading paper...</p>;
   }
 
   if (!paper) {
-    return <p className="text-center mt-10">Someone tore the paper lol</p>;
+    return (
+      <div className="flex flex-col h-[80vh] justify-center items-center gap-4">
+        <Image src={notFound} alt="404 Not Found!" width={400} height={700} />
+        <p className="text-2xl text-center lg:text-4xl">
+          You can't access the website unless my WiFi comes back. So Sorry
+        </p>
+        <p className="text-xl lg:text-3xl">Meanwhile, you can watch this!</p>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+          className="mt-5 border-2 border-black px-4 py-2 uppercase font-bold sketchy-border hover:bg-black hover:text-white transition-colors"
+        >
+          Watch
+        </a>
+      </div>
+    );
   }
 
   const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
