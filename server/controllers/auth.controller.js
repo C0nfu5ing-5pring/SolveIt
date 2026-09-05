@@ -117,3 +117,39 @@ export const getMe = async (req, res) => {
       .json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const updateUserEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is mandatory" });
+    }
+
+    const [existing] = await db.query(
+      "SELECT id FROM users WHERE email = ? AND id != ?",
+      [email, req.userId],
+    );
+
+    if (existing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "This email address is already in use",
+      });
+    }
+
+    await db.query("UPDATE users SET email = ? WHERE id = ?", [
+      email,
+      req.userId,
+    ]);
+
+    return res.json({ success: true, email });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
+  }
+};

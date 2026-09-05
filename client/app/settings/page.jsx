@@ -1,9 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
+import laughingCat from "../../public/images/laughingCat.jpg";
+import Image from "next/image";
+import { toast } from "react-toastify";
+import CustomToast from "../../components/CustomToast";
 
 const page = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [newEmail, setNewEmail] = useState("");
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,28 +37,83 @@ const page = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center mt-10">Loading...</p>;
+    return <p className="text-center text-4xl mt-10">Loading...</p>;
   }
 
   if (!user) {
-    return <p className="text-center mt-10">Please log in to view settings</p>;
+    return (
+      <div className="flex flex-col h-[80vh] justify-center items-center gap-4">
+        <Image src={laughingCat} alt="Laughing Cat" width={400} height={700} />
+        <p className="text-2xl text-center lg:text-4xl">
+          This guy is trying to access the site without logging in. LOL
+        </p>
+      </div>
+    );
   }
 
-  console.log(process.env.NEXT_PUBLIC_API_URL);
+  const handleEmailUpdate = async () => {
+    if (!newEmail) {
+      toast(<CustomToast msg="Please enter an email address" />);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+      toast(<CustomToast msg="Please enter a valid email address" />);
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    setUpdating(true);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/update-email`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ email: newEmail }),
+        },
+      );
+
+      if (!res.ok && res.status >= 500) {
+        throw new Error("Server error");
+      }
+
+      const data = await res.json();
+      if (data.success) {
+        setUser((prev) => ({ ...prev, email: data.email }));
+        setNewEmail("");
+        toast(<CustomToast msg="Email updated successfully" />);
+      } else {
+        toast(<CustomToast msg={data.message} />);
+      }
+    } catch (err) {
+      console.error("Failed to update email", err);
+      toast(
+        <CustomToast msg="Couldn't reach the server. Check your connection OR, maybe my WiFi isn't working" />,
+      );
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   return (
-    <div className="h-[83vh] flex flex-col lg:px-5 gap-5">
+    <div className="h-[83vh] flex flex-col lg:px-5 gap-5 pb-10">
       <div>
         <h1 className="text-4xl lg:text-5xl">Settings</h1>
         <p className="text-xl lg:text-2xl">
           Manage your account and preferences
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-20">
-        <div className="sketchy-border h-50 p-5 rounded-xl flex flex-col gap-2 lg:gap-3">
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-5">
+        <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Profile</h1>
           <div className="flex gap-5 lg:gap-10">
-            <button className="rounded-full w-20 h-20 lg:w-25 lg:h-25 sketchy-border">
+            <button className="rounded-full w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0">
               Edit
             </button>
 
@@ -71,7 +132,7 @@ const page = () => {
           </div>
         </div>
 
-        <div className="sketchy-border h-50 p-5 rounded-xl flex flex-col gap-3">
+        <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Account</h1>
 
           <div className="flex flex-col gap-1 lg:gap-2 ">
@@ -87,36 +148,42 @@ const page = () => {
                 className="text-xl mb-3 cursor-pointer px-1"
                 type="email"
                 placeholder="Enter new email address"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
               ></input>
             </div>
           </div>
-          <button className="sketchy-border w-fit px-2 text-xl cursor-pointer rounded-xl ml-auto bg-black text-white hover:bg-white hover:text-black transition-all ">
-            Update
+          <button
+            disabled={updating}
+            onClick={handleEmailUpdate}
+            className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {updating ? "Updating..." : "Update"}
           </button>
         </div>
 
-        <div className="sketchy-border h-50 p-5 rounded-xl flex flex-col gap-2">
+        <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Appearance</h1>
 
           <div>
-            <h1 className="text-xl">Theme</h1>
+            <h1 className="text-xl lg:text-2xl">Theme</h1>
           </div>
           <div className="flex gap-5">
-            <div className="sketchy-border px-2 py-1 rounded-xl active:scale-95 cursor-pointer hover:bg-black hover:text-white text-xl lg:text-2xl">
+            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
               Light
             </div>
-            <div className="sketchy-border px-2 py-1 rounded-xl active:scale-95 cursor-pointer hover:bg-black hover:text-white text-xl lg:text-2xl">
+            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
               Dark
             </div>
-            <div className="sketchy-border px-2 py-1 rounded-xl active:scale-95 cursor-pointer hover:bg-black hover:text-white text-xl lg:text-2xl">
+            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
               System
             </div>
           </div>
         </div>
       </div>
-      <div className="sketchy-border p-5 rounded-xl">
-        <div className="flex justify-between items-center gap-2">
-          <div className="flex lg:gap-1 flex-col">
+      <div className="sketchy-border-del p-5 rounded-xl">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex gap-1 flex-col">
             <h1 className="text-2xl lg:text-3xl">Delete Account</h1>
             <p className="text-lg lg:text-xl leading-4">
               Once you delete your account, it won't be available again
@@ -124,7 +191,7 @@ const page = () => {
           </div>
 
           <div>
-            <button className="text-md lg:text-xl sketchy-border leading-3 py-2 px-3 rounded-xl bg-[#F05A5A] hover:bg-[#ea3737] cursor-pointer active:scale-95 transition-all">
+            <button className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit  bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
               Delete Account
             </button>
           </div>

@@ -621,7 +621,7 @@ export default function UploadPage() {
             <button
               type="submit"
               disabled={loading}
-              className="text-sm md:text-base lg:text-lg sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 text-black px-4 py-2 rounded-sm cursor-pointer"
+              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Uploading..." : "Upload"}
             </button>
