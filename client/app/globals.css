@@ -32,6 +32,21 @@ body {
   filter: url("#sketch-filter");
 }
 
+.sketchy-border-del {
+  position: relative;
+  border: none !important;
+}
+
+.sketchy-border-del::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 3px solid #e94b4b;
+  border-radius: inherit;
+  filter: url("#sketch-filter");
+}
+
 .sketchy-divider {
   border: none;
   height: 2px;
