@@ -303,7 +303,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid lg:h-80 overflow-y-auto h-80">
+      <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 overflow-y-auto overflow-x-hidden min-w-0 w-full box-border">
         <h1 className="text-2xl lg:text-3xl">Your Uploads</h1>
 
         {papersLoading ? (
@@ -311,20 +311,22 @@ const page = () => {
         ) : myPapers.length === 0 ? (
           <p className="text-lg">You haven't uploaded any papers yet</p>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-full pr-1">
             {myPapers.map((paper) => (
               <div
                 key={paper.id}
-                className="sketchy-border p-5 rounded-xl flex flex-col gap-2"
+                className="sketchy-border p-5 rounded-xl flex flex-col gap-2 min-w-0 w-full box-border"
               >
-                <div className="flex flex-col gap-1">
-                  <h1 className="lg:text-3xl text-2xl">{paper.title}</h1>
+                <div className="flex flex-col gap-1 min-w-0">
+                  <h1 className="lg:text-3xl text-2xl truncate">
+                    {paper.title}
+                  </h1>
                   <p className="px-2 text-lg md:text-xl lg:text-2xl sketchy-border w-fit rounded-xl">
                     {paper.subject}
                   </p>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <p className="text-lg md:text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap w-fit">
                     {"Class " + paper.class}
                   </p>
@@ -332,7 +334,7 @@ const page = () => {
                     {paper.exam_name}
                   </p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center gap-2">
                   <p className="text-lg md:text-xl lg:text-2xl whitespace-nowrap w-fit">
                     {new Date(paper.uploaded_at).toLocaleDateString("en-GB", {
                       day: "2-digit",
@@ -343,7 +345,7 @@ const page = () => {
                   <button
                     disabled={deletePaperId === paper.id}
                     onClick={() => handleDeletePaper(paper.id)}
-                    className="sketchy-border px-2 py-2 rounded-xl bg-[#F05A5A] hover:bg-[#e94b4b] text-lg cursor-pointer active:scale-95 transition-all disabled:opacity-50"
+                    className="sketchy-border px-2 py-2 rounded-xl bg-[#F05A5A] hover:bg-[#e94b4b] text-lg cursor-pointer active:scale-95 transition-all disabled:opacity-50 shrink-0"
                   >
                     {deletePaperId === paper.id ? (
                       "..."
