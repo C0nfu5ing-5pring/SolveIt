@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import CustomToast from "../../components/CustomToast";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [user, setUser] = useState(null);
@@ -18,6 +19,7 @@ const page = () => {
   const [myPapers, setMyPapers] = useState([]);
   const [papersLoading, setPapersLoading] = useState(true);
   const [deletePaperId, setDeletePaperId] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -315,6 +317,7 @@ const page = () => {
             {myPapers.map((paper) => (
               <div
                 key={paper.id}
+                onClick={() => router.push(`papers/${paper.id}`)}
                 className="sketchy-border p-5 rounded-xl flex flex-col gap-2 min-w-0 w-full box-border"
               >
                 <div className="flex flex-col gap-1 min-w-0">
