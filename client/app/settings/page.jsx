@@ -4,6 +4,8 @@ import laughingCat from "../../public/images/laughingCat.jpg";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import CustomToast from "../../components/CustomToast";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Delete02Icon } from "@hugeicons/core-free-icons";
 
 const page = () => {
   const [user, setUser] = useState(null);
@@ -13,6 +15,9 @@ const page = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [myPapers, setMyPapers] = useState([]);
+  const [papersLoading, setPapersLoading] = useState(true);
+  const [deletePaperId, setDeletePaperId] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -37,6 +42,37 @@ const page = () => {
       }
     };
     fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchMyPapers = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setPapersLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/papers/my-papers`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        const data = await res.json();
+        if (data.success) {
+          setMyPapers(data.papers);
+        }
+      } catch (err) {
+        console.error("Failed to fetch your papers :(", err);
+        toast(<CustomToast msg="Failed to fetch papers :(" />);
+      } finally {
+        setPapersLoading(false);
+      }
+    };
+    fetchMyPapers();
   }, []);
 
   if (loading) {
@@ -154,15 +190,47 @@ const page = () => {
     }
   };
 
+  const handleDeletePaper = async (paperId) => {
+    const token = localStorage.getItem("token");
+    setDeletePaperId(paperId);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/papers/${paperId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (!res.ok && res.status >= 500) {
+        throw new Error("Server error :(");
+      }
+
+      const data = await res.json();
+
+      if (data.success) {
+        setMyPapers((prev) => prev.filter((p) => p.id !== paperId));
+        toast(<CustomToast msg="Paper deleted" />);
+      } else {
+        toast(<CustomToast msg={data.message} />);
+      }
+    } catch (err) {
+      console.error("Failed to delete paper :(", err);
+      toast(<CustomToast msg="Couldn't reach server :(" />);
+    } finally {
+      setDeletePaperId(null);
+    }
+  };
+
   return (
-    <div className="h-[83vh] flex flex-col lg:px-5 gap-5 pb-10">
+    <div className=" flex flex-col lg:px-5 gap-5 pb-10">
       <div>
         <h1 className="text-4xl lg:text-5xl">Settings</h1>
         <p className="text-xl lg:text-2xl">
           Manage your account and preferences
         </p>
       </div>
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-5">
+      <div className="columns-1 md:columns-2 lg:columns-3 lg:gap-5">
         <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Profile</h1>
           <div className="flex gap-5 lg:gap-10">
@@ -234,10 +302,73 @@ const page = () => {
           </div>
         </div>
       </div>
+
+      <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid lg:h-80 overflow-y-auto h-80">
+        <h1 className="text-2xl lg:text-3xl">Your Uploads</h1>
+
+        {papersLoading ? (
+          <p className="text-lg">Loading your papers...</p>
+        ) : myPapers.length === 0 ? (
+          <p className="text-lg">You haven't uploaded any papers yet</p>
+        ) : (
+          <div className="flex flex-col gap-3">
+            {myPapers.map((paper) => (
+              <div
+                key={paper.id}
+                className="sketchy-border p-5 rounded-xl flex flex-col gap-2"
+              >
+                <div className="flex flex-col gap-1">
+                  <h1 className="lg:text-3xl text-2xl">{paper.title}</h1>
+                  <p className="px-2 text-lg md:text-xl lg:text-2xl sketchy-border w-fit rounded-xl">
+                    {paper.subject}
+                  </p>
+                </div>
+
+                <div className="flex gap-2">
+                  <p className="text-lg md:text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap w-fit">
+                    {"Class " + paper.class}
+                  </p>
+                  <p className="text-lg md:text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap w-fit">
+                    {paper.exam_name}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-lg md:text-xl lg:text-2xl whitespace-nowrap w-fit">
+                    {new Date(paper.uploaded_at).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "2-digit",
+                    })}
+                  </p>
+                  <button
+                    disabled={deletePaperId === paper.id}
+                    onClick={() => handleDeletePaper(paper.id)}
+                    className="sketchy-border px-2 py-2 rounded-xl bg-[#F05A5A] hover:bg-[#e94b4b] text-lg cursor-pointer active:scale-95 transition-all disabled:opacity-50"
+                  >
+                    {deletePaperId === paper.id ? (
+                      "..."
+                    ) : (
+                      <HugeiconsIcon
+                        icon={Delete02Icon}
+                        size={24}
+                        color="currentColor"
+                        strokeWidth={1.5}
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="sketchy-border-del p-5 rounded-xl">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex gap-1 flex-col">
-            <h1 className="text-2xl lg:text-3xl">Delete Account</h1>
+            <h1 className="text-2xl lg:text-3xl  text-[#e94b4b]">
+              Delete Account
+            </h1>
             <p className="text-lg lg:text-xl leading-4">
               Once you delete your account, it won't be available again
             </p>

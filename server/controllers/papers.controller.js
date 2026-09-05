@@ -170,3 +170,50 @@ export const getPaperById = async (req, res) => {
       .json({ success: false, message: "Someone tore the paper lol" });
   }
 };
+
+export const getMyPapers = async (req, res) => {
+  try {
+    const [papers] = await db.query(
+      "SELECT * FROM papers WHERE id = ? ORDER BY uploaded_at DESC",
+      [req, userID],
+    );
+    return res.status(500).json({ success: true, papers });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
+
+export const deletePaper = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [papers] = await db.query(
+      "SELECT * FROM papers WHERE id = ? AND uploaded_by = ?",
+      [id, req.userId],
+    );
+
+    if (papers.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Paper not found or you don't own it",
+      });
+    }
+
+    const filePath = path.join(process.cwd(), papers[0].file_path);
+    fs.unlink(filePath, (err) => {
+      if (err) console.error("Failed to delete file:", filePath, err);
+    });
+
+    await db.query("DELETE FROM papers WHERE id = ?", [id]);
+
+    return res.json({ success: true, message: "Paper deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
+  }
+};
