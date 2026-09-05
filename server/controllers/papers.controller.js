@@ -175,7 +175,7 @@ export const getMyPapers = async (req, res) => {
   try {
     const [papers] = await db.query(
       "SELECT * FROM papers WHERE id = ? ORDER BY uploaded_at DESC",
-      [req, userID],
+      [req.userId],
     );
     return res.status(500).json({ success: true, papers });
   } catch (err) {
