@@ -174,10 +174,10 @@ export const getPaperById = async (req, res) => {
 export const getMyPapers = async (req, res) => {
   try {
     const [papers] = await db.query(
-      "SELECT * FROM papers WHERE id = ? ORDER BY uploaded_at DESC",
+      "SELECT * FROM papers WHERE uploaded_by = ? ORDER BY uploaded_at DESC",
       [req.userId],
     );
-    return res.status(500).json({ success: true, papers });
+    return res.json({ success: true, papers });
   } catch (err) {
     console.error(err);
     return res.status(500).json({
