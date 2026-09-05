@@ -153,3 +153,59 @@ export const updateUserEmail = async (req, res) => {
       .json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const { password } = req.body;
+    if (!password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Password is required" });
+    }
+
+    const [users] = await db.query("SELECT * FROM users WHERE id = ?", [
+      req.userId,
+    ]);
+
+    if (users.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    const passwordMatches = await bcrypt.compare(
+      password,
+      users[0].password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect password",
+      });
+    }
+
+    const [papers] = await db.query(
+      "SELECT file_path FROM papers WHERE uploaded_by = ?",
+      [req.userId],
+    );
+
+    for (const paper of papers) {
+      const filePath = path.join(process.cwd(), paper.file_path);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error("Failed to delete the file:", filePath, err);
+        }
+      });
+    }
+
+    await db.query("DELETE FROM papers WHERE uploaded_by = ?", [req.userId]);
+    await db.query("DELETE FROM users WHERE id = ?", [req.userId]);
+
+    return res.json({ success: true, message: "Account deleted" });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
+  }
+};

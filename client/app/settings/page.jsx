@@ -10,6 +10,9 @@ const page = () => {
   const [loading, setLoading] = useState(true);
   const [newEmail, setNewEmail] = useState("");
   const [updating, setUpdating] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -98,6 +101,52 @@ const page = () => {
       );
     } finally {
       setUpdating(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!deletePassword) {
+      toast(<CustomToast msg="Please enter your password" />);
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    setDeleting(true);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/delete-me`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ password: deletePassword }),
+        },
+      );
+
+      if (!res.ok && res.status >= 500) {
+        throw new Error("Server error");
+      }
+
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+      } else {
+        toast(<CustomToast msg={data.message} />);
+      }
+    } catch (err) {
+      console.error("Failed to delete account", err);
+      toast(
+        <CustomToast msg="Couldn't reach the server. Check your connection." />,
+      );
+    } finally {
+      setDeleting(false);
+      setShowDeleteModal(false);
+      setDeletePassword("");
     }
   };
 
@@ -191,12 +240,54 @@ const page = () => {
           </div>
 
           <div>
-            <button className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit  bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+            <button
+              onClick={() => setShowDeleteModal(true)}
+              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit  bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Delete Account
             </button>
           </div>
         </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-[#17171751] flex items-center justify-center z-50 px-4">
+          <div className="sketchy-border-del bg-[#fffef9] p-6 rounded-xl max-w-sm w-full flex flex-col gap-4">
+            <h2 className="text-2xl lg:text-3xl">Confirm Delete</h2>
+            <p className="text-lg">
+              Enter your password to permanently delete your account and all
+              uploaded papers.
+            </p>
+            <input
+              type="password"
+              placeholder="Your password"
+              value={deletePassword}
+              onChange={(e) => {
+                setDeletePassword(e.target.value);
+              }}
+              className="sketchy-border px-3 py-2 rounded-xl text-lg"
+            />
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+                className="sketchy-border px-4 py-2 rounded-xl text-lg  cursor-pointer active:scale-95 transition-all disabled:opacity-50"
+              >
+                {deleting ? "Deleting..." : "Delete Forever"}
+              </button>
+              <button
+                className="sketchy-border px-4 bg-[#f05a5a] hover:bg-[#e94b4b] py-2 rounded-xl text-lg cursor-pointer active:scale-95 transition-all"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setDeletePassword("");
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
