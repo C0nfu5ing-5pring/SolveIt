@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import CustomToast from "../../../components/CustomToast.jsx";
 import Image from "next/image.js";
-import { notFound } from "../../public/images/404.png";
+import notFound from "../../public/images/404.png";
 
 export default function PaperPage() {
   const { id } = useParams();
