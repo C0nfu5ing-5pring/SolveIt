@@ -87,7 +87,7 @@ export const getPapers = async (req, res) => {
     }
 
     if (exam_name) {
-      query += "AND exam_name = ?";
+      query += " AND exam_name = ?";
       parameters.push(subject);
     }
 
