@@ -187,8 +187,6 @@ export const getMyPapers = async (req, res) => {
   }
 };
 
-
-
 export const deletePaper = async (req, res) => {
   try {
     const { id } = req.params;

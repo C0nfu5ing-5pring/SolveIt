@@ -103,15 +103,15 @@ export default function PaperPage() {
   const filesizeinkb = (paper.file_size / 1024).toFixed(1);
 
   return (
-    <div className="flex flex-col md:flex-row gap-5 h-[83vh]">
+    <div className="flex flex-col md:flex-row gap-5 md:h-[83vh]">
       <button
         onClick={() => router.push("/browse")}
-        className="md:hidden text-xl sketchy-border flex items-center justify-center gap-2 border-2 border-black rounded-xl py-2 cursor-pointer active:scale-95 transition-all"
+        className="md:hidden text-xl sketchy-border flex items-center justify-center gap-2 border-2 border-black rounded-xl py-2 cursor-pointer active:scale-95 transition-all shrink-0"
       >
         Back
       </button>
 
-      <div className="w-full md:flex-1 h-[60vh] md:h-full sketchy-border rounded-xl overflow-hidden p-1">
+      <div className="w-full md:flex-1 h-[75dvh] md:h-full sketchy-border rounded-xl overflow-hidden p-1 shrink-0">
         <iframe
           src={`${process.env.NEXT_PUBLIC_API_URL}${paper.file_path}`}
           className="w-full h-full rounded-xl"
