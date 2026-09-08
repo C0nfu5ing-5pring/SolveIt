@@ -9,6 +9,7 @@ import CustomToast from "../../components/CustomToast.jsx";
 import SearchBar from "../../components/SeachBar.jsx";
 import notFound from "../../public/images/404.png";
 import Image from "next/image";
+import { handleAuthError } from "../../lib/handleAuthError.js";
 
 export default function BrowsePage() {
   const [papers, setPapers] = useState([]);
@@ -92,6 +93,11 @@ export default function BrowsePage() {
           },
         },
       );
+
+      if (res.status === 400 || res.status === 401) {
+        handleAuthError(router);
+        return;
+      }
 
       if (!res.ok) {
         toast.error("Failed to download the file :(");

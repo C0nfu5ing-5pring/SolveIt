@@ -7,6 +7,7 @@ import CustomToast from "../../components/CustomToast";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { useRouter } from "next/navigation";
+import { handleAuthError } from "../../lib/handleAuthError";
 
 const page = () => {
   const [user, setUser] = useState(null);
@@ -33,6 +34,12 @@ const page = () => {
             headers: { Authorization: `Bearer ${token}` },
           },
         );
+
+        if (res.status === 400 || res.status === 401) {
+          handleAuthError(router);
+          return;
+        }
+
         const data = await res.json();
         if (data.success) {
           setUser(data.user);
@@ -317,7 +324,7 @@ const page = () => {
             {myPapers.map((paper) => (
               <div
                 key={paper.id}
-                onClick={() => router.push(`papers/${paper.id}`)}
+                onClick={() => router.push(`/papers/${paper.id}`)}
                 className="sketchy-border p-5 rounded-xl flex flex-col gap-2 min-w-0 w-full box-border"
               >
                 <div className="flex flex-col gap-1 min-w-0">

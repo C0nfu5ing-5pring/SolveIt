@@ -1,8 +1,8 @@
 "use client";
-
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CustomToast from "../../components/CustomToast";
+import { handleAuthError } from "../../lib/handleAuthError";
 
 const Page = () => {
   const [name, setName] = useState("");
@@ -31,6 +31,11 @@ const Page = () => {
           }),
         },
       );
+
+      if (res.status === 400 || res.status === 401) {
+        handleAuthError(router);
+        return;
+      }
 
       if (!res.ok) {
         const error = await res.json();

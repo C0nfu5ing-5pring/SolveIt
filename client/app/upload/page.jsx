@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { handleAuthError } from "../../lib/handleAuthError";
 
 const countries = {
   India: {
@@ -261,6 +262,11 @@ export default function UploadPage() {
         },
         body: formData,
       });
+
+      if (res.status === 400 || res.status === 401) {
+        handleAuthError(router);
+        return;
+      }
 
       const data = await res.json();
       if (!data.success) {

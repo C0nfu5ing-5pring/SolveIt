@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CustomToast from "../../../components/CustomToast.jsx";
 import Image from "next/image.js";
 import notFound from "../../../public/images/404.png";
+import { handleAuthError } from "../../../lib/handleAuthError.js";
 
 export default function PaperPage() {
   const { id } = useParams();
@@ -49,6 +50,11 @@ export default function PaperPage() {
           },
         },
       );
+
+      if (res.status === 400 || res.status === 401) {
+        handleAuthError(router);
+        return;
+      }
 
       if (!res.ok) {
         throw new Error("Failed to download the file :(");

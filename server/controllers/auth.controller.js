@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../db/mysql.js";
+import path from "path";
+import fs from "fs";
 
 export const signup = async (req, res) => {
   try {
@@ -34,7 +36,7 @@ export const signup = async (req, res) => {
       { userId: result.insertId },
       process.env.JWT_SECRET,
       {
-        expiresIn: "7d",
+        expiresIn: "30d",
       },
     );
 
@@ -81,7 +83,7 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "30d",
     });
 
     return res.json({
