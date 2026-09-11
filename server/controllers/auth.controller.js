@@ -211,3 +211,27 @@ export const deleteAccount = async (req, res) => {
       .json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const updateAvatar = async (req, res) => {
+  try {
+    const { avatarCongif } = req.body;
+
+    if (!avatarCongif) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Avatar config is required" });
+    }
+    const configString = JSON.stringify(avatarCongif);
+
+    await db.query("UPDATE users SET avatar_config = ? WHERE id = ?", [
+      configString,
+      req.userId,
+    ]);
+    return res.json({ success: true, avatarCongif });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong :(" });
+  }
+};

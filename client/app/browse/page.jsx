@@ -150,7 +150,7 @@ export default function BrowsePage() {
       <div className="flex flex-col md:flex-row gap-5 md:flex-1 md:overflow-hidden">
         <button
           onClick={() => setFiltersOpen((prev) => !prev)}
-          className="md:hidden text-xl sketchy-border rounded-xl flex items-center justify-center gap-2 border-2 border-black rounded-md py-2 cursor-pointer active:scale-95 transition-all"
+          className="md:hidden text-xl sketchy-border rounded-xl flex items-center justify-center gap-2 border-2 border-black py-2 cursor-pointer active:scale-95 transition-all"
         >
           <HugeiconsIcon icon={FilterIcon} size={25} />
           {filtersOpen ? "Hide Filters" : "Show Filters"}
@@ -174,13 +174,16 @@ export default function BrowsePage() {
           />
         </div>
 
-        <div className="w-full md:flex-1 md:columns-2 lg:columns-3 xl:columns-4 md:gap-4 md:h-full md:overflow-y-auto md:pr-2">
+        <div className="w-full md:flex-1 md:columns-2 lg:columns-3 xl:columns-4 md:gap-4 md:h-full md:overflow-y-auto md:overflow-x-hidden md:pr-2">
           {filteredPapersss.map((paper) => {
             const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
             const filesizeinkb = (paper.file_size / 1024).toFixed(1);
 
             return (
-              <div key={paper.id} className="w-full mb-4 md:break-inside-avoid">
+              <div
+                key={paper.id}
+                className="w-full mb-4 md:break-inside-avoid min-w-0"
+              >
                 <div
                   onClick={() => handlePaperClick(paper)}
                   className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative"

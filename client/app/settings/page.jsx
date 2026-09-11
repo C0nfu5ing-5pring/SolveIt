@@ -8,6 +8,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { useRouter } from "next/navigation";
 import { handleAuthError } from "../../lib/handleAuthError";
+import Avatar from "../../components/Avatar";
+import AvatarBuilder from "../../components/AvatarBuilder";
 
 const page = () => {
   const [user, setUser] = useState(null);
@@ -21,6 +23,8 @@ const page = () => {
   const [papersLoading, setPapersLoading] = useState(true);
   const [deletePaperId, setDeletePaperId] = useState(null);
   const router = useRouter();
+  const [showAvatarBuilder, setShowAvatarBuilder] = useState(false);
+  const [avatarConfig, setAvatarConfig] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -43,6 +47,13 @@ const page = () => {
         const data = await res.json();
         if (data.success) {
           setUser(data.user);
+          if (data.user.avatar_config) {
+            try {
+              setAvatarConfig(JSON.parse(data.user.avatar_config));
+            } catch (e) {
+              setAvatarConfig(null);
+            }
+          }
         }
       } catch (err) {
         console.error("Failed to fetch user", err);
@@ -243,8 +254,11 @@ const page = () => {
         <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Profile</h1>
           <div className="flex gap-5 lg:gap-10">
-            <button className="rounded-full w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0">
-              Edit
+            <button
+              onClick={() => setShowAvatarBuilder(true)}
+              className="rounded-full w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0"
+            >
+              <Avatar config={avatarConfig} size={80} />
             </button>
 
             <div className="flex flex-col lg:gap-2 ">
@@ -434,6 +448,14 @@ const page = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {showAvatarBuilder && (
+        <AvatarBuilder
+          currentConfig={avatarConfig}
+          onClose={() => setShowAvatarBuilder(false)}
+          onSave={(newConfig) => setAvatarConfig(newConfig)}
+        />
       )}
     </div>
   );
