@@ -174,113 +174,115 @@ export default function BrowsePage() {
           />
         </div>
 
-        <div className="w-full md:flex-1 md:columns-2 lg:columns-3 xl:columns-4 md:gap-4 md:h-full md:overflow-y-auto md:overflow-x-hidden md:pr-2">
-          {filteredPapersss.map((paper) => {
-            const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
-            const filesizeinkb = (paper.file_size / 1024).toFixed(1);
+        <div className="w-full md:flex-1 md:h-full md:overflow-y-auto md:overflow-x-hidden md:pr-2">
+          <div className="columns-2 lg:columns-3 xl:columns-5 gap-4">
+            {filteredPapersss.map((paper) => {
+              const filesizeinmb = (paper.file_size / 1024 / 1024).toFixed(1);
+              const filesizeinkb = (paper.file_size / 1024).toFixed(1);
 
-            return (
-              <div
-                key={paper.id}
-                className="w-full mb-4 md:break-inside-avoid min-w-0"
-              >
-                <div
-                  onClick={() => handlePaperClick(paper)}
-                  className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative"
-                >
-                  <div>
-                    <h1 className="lg:text-3xl text-2xl">
-                      {paper.title.length > 20
-                        ? paper.title.slice(0, 20) + "..."
-                        : paper.title}
-                    </h1>
-                    {paper.description !== null && (
-                      <p className="text-lg">
-                        {paper.description.length > 40
-                          ? paper.description.slice(0, 40) + "..."
-                          : paper.description}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <div className="flex gap-1 items-center flex-wrap">
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {"Class" + " " + paper.class}
-                      </p>
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {paper.subject}
-                      </p>
-                    </div>
-
-                    <div className="flex gap-1 flex-wrap">
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {paper.exam_name}
-                      </p>
-
-                      {(paper.exam_name === "State Boards" ||
-                        paper.exam_name === "State Standardized Tests") && (
-                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                          {paper.state}
+              return (
+                <div key={paper.id} className="mb-4 break-inside-avoid">
+                  <div
+                    onClick={() => handlePaperClick(paper)}
+                    className="sketchy-border p-4 rounded-xl w-full flex flex-col gap-2 cursor-pointer relative"
+                  >
+                    <div>
+                      <h1 className="lg:text-3xl text-2xl">
+                        {paper.title.length > 20
+                          ? paper.title.slice(0, 20) + "..."
+                          : paper.title}
+                      </h1>
+                      {paper.description !== null && (
+                        <p className="text-lg">
+                          {paper.description.length > 40
+                            ? paper.description.slice(0, 40) + "..."
+                            : paper.description}
                         </p>
                       )}
-
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {paper.type}
-                      </p>
-
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {paper.year}
-                      </p>
                     </div>
 
-                    <div className="flex gap-1 flex-wrap">
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {paper.page_count} Pages{" "}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex gap-1 items-center flex-wrap">
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {"Class" + " " + paper.class}
+                        </p>
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {paper.subject}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-1 flex-wrap">
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {paper.exam_name}
+                        </p>
+
+                        {(paper.exam_name === "State Boards" ||
+                          paper.exam_name === "State Standardized Tests") && (
+                          <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                            {paper.state}
+                          </p>
+                        )}
+
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {paper.type}
+                        </p>
+
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {paper.year}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-1 flex-wrap">
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {paper.page_count} Pages{" "}
+                        </p>
+                        <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
+                          {filesizeinmb > 0.6
+                            ? filesizeinmb + " MB"
+                            : filesizeinkb + " KB"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <hr className="mt-auto" />
+
+                    <div className="flex justify-between gap-2">
+                      <p className="text-lg lg:text-xl underline">
+                        By: {paper.uploader_name}
                       </p>
-                      <p className="text-xl lg:text-2xl sketchy-border px-2 rounded-full whitespace-nowrap">
-                        {filesizeinmb > 0.6
-                          ? filesizeinmb + " MB"
-                          : filesizeinkb + " KB"}
+                      <p className="text-lg lg:text-xl">
+                        {new Date(paper.uploaded_at).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "2-digit",
+
+                            month: "2-digit",
+
+                            year: "2-digit",
+                          },
+                        )}
+                      </p>
+                      <p className="flex items-center gap-2 text-xl">
+                        {paper.download_count + " "}
+
+                        <HugeiconsIcon
+                          icon={Download01Icon}
+                          size={29}
+                          color="currentColor"
+                          strokeWidth={1.5}
+                          className="z-10"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDownloadButtonClick(paper);
+                          }}
+                        />
                       </p>
                     </div>
-                  </div>
-
-                  <hr className="mt-auto" />
-
-                  <div className="flex justify-between gap-2">
-                    <p className="text-lg lg:text-xl underline">
-                      By: {paper.uploader_name}
-                    </p>
-                    <p className="text-lg lg:text-xl">
-                      {new Date(paper.uploaded_at).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-
-                        month: "2-digit",
-
-                        year: "2-digit",
-                      })}
-                    </p>
-                    <p className="flex items-center gap-2 text-xl">
-                      {paper.download_count + " "}
-
-                      <HugeiconsIcon
-                        icon={Download01Icon}
-                        size={29}
-                        color="currentColor"
-                        strokeWidth={1.5}
-                        className="z-10"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDownloadButtonClick(paper);
-                        }}
-                      />
-                    </p>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
