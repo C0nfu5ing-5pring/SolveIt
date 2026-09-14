@@ -125,7 +125,7 @@ export default function Avatar({ config, size = 80 }) {
       />
       {eyes[safeConfig.eyes] || eyes.happy}
       {mouths[safeConfig.mouth] || mouths.smile}
-      {accessories[safeConfig.accessories]}
+      {accessories[safeConfig.accessory]}
     </svg>
   );
 }
