@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const bg_colours = [
   "#ffd93d",
-  "9edc7a",
+  "#9edc7a",
   "#7ac7ec",
   "#f05a5a",
   "#c97aec",
@@ -17,7 +17,7 @@ const bg_colours = [
   "#ec7ab8",
 ];
 const eyes = ["happy", "dot", "wink", "angry"];
-const mouth = ["smile", "flat", "open", "shrink"];
+const mouth = ["smile", "flat", "open", "smirk"];
 const accessory = ["none", "cap", "glasses", "headband"];
 
 export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
@@ -82,17 +82,11 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
             {bg_colours.map((color) => (
               <button
                 key={color}
-                onClick={() =>
-                  setConfig((prev) => ({
-                    ...prev,
-                    bg: color,
-                  }))
-                }
-                className={`w-10 h-10 rounded-full cursor-pointer transition-all active:scale-90 ${
-                  config.bg === color
-                    ? "ring-4 ring-[#171717]"
-                    : "ring-2 ring-[#171717]/30"
+                onClick={() => setConfig((prev) => ({ ...prev, bg: color }))}
+                className={`w-10 h-10 sketchy-border rounded-full cursor-pointer transition-all active:scale-90 ${
+                  config.bg === color ? "ring-2 ring-[#171717]" : ""
                 }`}
+                style={{ backgroundColor: color }}
               ></button>
             ))}
           </div>
@@ -118,8 +112,16 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
         <div>
           <p className="text-lg mb-2">Mouth</p>
           <div className="flex gap-2 flex-wrap">
-            {mouth.map((mouth) => (
-              <button className="flex gap-2 flex-wrap">{mouth}</button>
+            {mouth.map((mth) => (
+              <button
+                key={mth}
+                onClick={() => setConfig((prev) => ({ ...prev, mouth: mth }))}
+                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${
+                  config.mouth === mth ? "bg-[#171717] text-[#fffef9]" : ""
+                }`}
+              >
+                {mth}
+              </button>
             ))}
           </div>
         </div>
@@ -127,35 +129,36 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
         <div>
           <p className="text-lg mb-2">Accessory</p>
           <div className="flex gap-2 flex-wrap">
-            {accessory.map((acc) => {
+            {accessory.map((acc) => (
               <button
                 key={acc}
                 onClick={() =>
-                  setConfig((prev) => ({
-                    ...prev,
-                    accessory: acc,
-                  }))
+                  setConfig((prev) => ({ ...prev, accessory: acc }))
                 }
-                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${config.accessory === acc ? "bg-[#171717] text-[#fffef9]" : ""}`}
+                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${
+                  config.accessory === acc ? "bg-[#171717] text-[#fffef9]" : ""
+                }`}
               >
                 {acc}
-              </button>;
-            })}
+              </button>
+            ))}
           </div>
-          <div>
-            <button
-              onClick={onClose}
-              className="sketchy-border px-4 py-2 rounded-xl text-lg cursor-pointer active:scale-95 transition-all"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              className="sketchy-border px-4 py-2 rounded-xl text-lg bg-[#9edc7a] hover:bg-[@70c042] cursor-pointer active:scale-95 transition-all disabled:opacity-50"
-            >
-              {saving ? "Saving..." : "Save"}
-            </button>
-          </div>
+        </div>
+
+        <div className="flex gap-3 justify-end mt-2">
+          <button
+            onClick={onClose}
+            className="sketchy-border px-4 py-2 rounded-xl text-lg cursor-pointer active:scale-95 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="sketchy-border px-4 py-2 rounded-xl text-lg bg-[#9edc7a] hover:bg-[#70c042] cursor-pointer active:scale-95 transition-all disabled:opacity-50"
+          >
+            {saving ? "Saving..." : "Save"}
+          </button>
         </div>
       </div>
     </div>

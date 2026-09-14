@@ -214,20 +214,20 @@ export const deleteAccount = async (req, res) => {
 
 export const updateAvatar = async (req, res) => {
   try {
-    const { avatarCongif } = req.body;
+    const { avatarConfig } = req.body;
 
-    if (!avatarCongif) {
+    if (!avatarConfig) {
       return res
         .status(400)
         .json({ success: false, message: "Avatar config is required" });
     }
-    const configString = JSON.stringify(avatarCongif);
+    const configString = JSON.stringify(avatarConfig);
 
     await db.query("UPDATE users SET avatar_config = ? WHERE id = ?", [
       configString,
       req.userId,
     ]);
-    return res.json({ success: true, avatarCongif });
+    return res.json({ success: true, avatarConfig });
   } catch (err) {
     console.error(err);
     return res
