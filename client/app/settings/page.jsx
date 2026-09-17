@@ -256,9 +256,9 @@ const page = () => {
           <div className="flex gap-5 lg:gap-10">
             <button
               onClick={() => setShowAvatarBuilder(true)}
-              className="rounded-full w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0"
+              className="rounded-full flex items-center justify-center w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0"
             >
-              <Avatar config={avatarConfig} size={80} />
+              <Avatar config={avatarConfig} size={100} />
             </button>
 
             <div className="flex flex-col lg:gap-2 ">

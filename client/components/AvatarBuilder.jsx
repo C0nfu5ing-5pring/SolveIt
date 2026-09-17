@@ -18,7 +18,6 @@ const bg_colours = [
 ];
 const eyes = ["happy", "dot", "wink", "angry"];
 const mouth = ["smile", "flat", "open", "smirk"];
-const accessory = ["none", "cap", "glasses", "headband"];
 
 export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
   const [config, setConfig] = useState(
@@ -26,7 +25,6 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
       bg: "#ffd93d",
       eyes: "happy",
       mouth: "smile",
-      accessory: "none",
     },
   );
   const [saving, setSaving] = useState(false);
@@ -99,7 +97,7 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
               <button
                 key={eye}
                 onClick={() => setConfig((prev) => ({ ...prev, eyes: eye }))}
-                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${
+                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-poi adf nter active:scale-95 transition-all capitalize ${
                   config.eyes === eye ? "bg-[#171717] text-[#fffef9]" : ""
                 }`}
               >
@@ -121,25 +119,6 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
                 }`}
               >
                 {mth}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="text-lg mb-2">Accessory</p>
-          <div className="flex gap-2 flex-wrap">
-            {accessory.map((acc) => (
-              <button
-                key={acc}
-                onClick={() =>
-                  setConfig((prev) => ({ ...prev, accessory: acc }))
-                }
-                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${
-                  config.accessory === acc ? "bg-[#171717] text-[#fffef9]" : ""
-                }`}
-              >
-                {acc}
               </button>
             ))}
           </div>
