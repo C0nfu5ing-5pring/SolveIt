@@ -67,4 +67,8 @@ SolveIt is a website that I've made as a student for students. Whenever I am pre
 - react-toastify
 - react-dom
 
+# AI Usage
+
+Used AI to generate SVG of sketched borders to make the site more leaned towards the theme. Used AI for handling password encryption as I have never done that before.
+
 # Thank you
