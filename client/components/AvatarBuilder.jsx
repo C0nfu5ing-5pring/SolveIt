@@ -90,14 +90,14 @@ export default function AvatarBuilder({ currentConfig, onClose, onSave }) {
           </div>
         </div>
 
-        <div>
+        <div> 
           <p className="text-lg mb-2">Eyes</p>
           <div className="flex gap-2 flex-wrap">
             {eyes.map((eye) => (
               <button
                 key={eye}
                 onClick={() => setConfig((prev) => ({ ...prev, eyes: eye }))}
-                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-poi adf nter active:scale-95 transition-all capitalize ${
+                className={`px-3 py-1 rounded-xl text-lg sketchy-border cursor-pointer active:scale-95 transition-all capitalize ${
                   config.eyes === eye ? "bg-[#171717] text-[#fffef9]" : ""
                 }`}
               >

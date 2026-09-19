@@ -25,6 +25,9 @@ const page = () => {
   const router = useRouter();
   const [showAvatarBuilder, setShowAvatarBuilder] = useState(false);
   const [avatarConfig, setAvatarConfig] = useState(null);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -160,6 +163,43 @@ const page = () => {
     }
   };
 
+  const handleChangePassword = async () => {
+    if (!currentPassword || !newPassword) return;
+
+    const token = localStorage.getItem("token");
+    setChangingPassword(true);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/change-password`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ currentPassword, newPassword }),
+        },
+      );
+
+      const data = await res.json();
+      if (data.success) {
+        toast(<CustomToast msg="Password updated successfully" />);
+        setCurrentPassword("");
+        setNewPassword("");
+      } else {
+        toast(<CustomToast msg={data.message} />);
+      }
+    } catch (err) {
+      console.error("Failed to update password", err);
+      toast(
+        <CustomToast msg="Couldn't reach the server. Check your connection OR, maybe my WiFi isn't working" />,
+      );
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
   const handleDeleteAccount = async () => {
     if (!deletePassword) {
       toast(<CustomToast msg="Please enter your password" />);
@@ -250,7 +290,7 @@ const page = () => {
           Manage your account and preferences
         </p>
       </div>
-      <div className="columns-1 md:columns-2 lg:columns-3 lg:gap-5">
+      <div className="columns-1 md:columns-3 lg:columns-3 lg:gap-2">
         <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
           <h1 className="text-2xl lg:text-3xl">Profile</h1>
           <div className="flex gap-5 lg:gap-10">
@@ -296,32 +336,41 @@ const page = () => {
                 onChange={(e) => setNewEmail(e.target.value)}
               ></input>
             </div>
-          </div>
-          <button
-            disabled={updating}
-            onClick={handleEmailUpdate}
-            className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {updating ? "Updating..." : "Update"}
-          </button>
-        </div>
+            <button
+              disabled={updating}
+              onClick={handleEmailUpdate}
+              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {updating ? "Updating..." : "Update"}
+            </button>
 
-        <div className="sketchy-border p-5 rounded-xl flex flex-col gap-2 lg:gap-3 mb-5 break-inside-avoid">
-          <h1 className="text-2xl lg:text-3xl">Appearance</h1>
-
-          <div>
-            <h1 className="text-xl lg:text-2xl">Theme</h1>
-          </div>
-          <div className="flex gap-5">
-            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-              Light
+            <hr className="sketchy-divider" />
+            <div className="flex justify-between gap-2">
+              <p className="text-xl">Change Password</p>
+              <div className="flex flex-col">
+                <input
+                  className="text-xl mb-3 cursor-pointer px-1"
+                  type="password"
+                  placeholder="Current password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <input
+                  className="text-xl mb-3 cursor-pointer px-1"
+                  type="password"
+                  placeholder="New password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-              Dark
-            </div>
-            <div className="text-lg md:text-xl lg:text-2xl hover:text-[#fffef9] sketchy-border w-fit bg-[#fffef9] hover:bg-[#171717] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-              System
-            </div>
+            <button
+              disabled={changingPassword}
+              onClick={handleChangePassword}
+              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {changingPassword ? "Updating..." : "Update"}
+            </button>
           </div>
         </div>
       </div>

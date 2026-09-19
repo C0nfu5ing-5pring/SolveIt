@@ -49,7 +49,7 @@ export const signup = async (req, res) => {
     console.error(err);
     return res
       .status(500)
-      .json({ success: false, message: "Something went wrong" });
+      .json({ success: false, message: "Something went wrong :(" });
   }
 };
 
@@ -95,7 +95,7 @@ export const login = async (req, res) => {
     console.log(err);
     return res
       .status(500)
-      .json({ success: false, message: "Something went wrong" });
+      .json({ success: false, message: "Something went wrong :(" });
   }
 };
 
@@ -116,7 +116,7 @@ export const getMe = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ success: false, message: "Something went wrong" });
+      .json({ success: false, message: "Something went wrong :(" });
   }
 };
 
@@ -138,7 +138,7 @@ export const updateUserEmail = async (req, res) => {
     if (existing.length > 0) {
       return res.status(400).json({
         success: false,
-        message: "This email address is already in use",
+        message: "Somebody is already using this email",
       });
     }
 
@@ -152,7 +152,58 @@ export const updateUserEmail = async (req, res) => {
     console.error(err);
     return res
       .status(500)
-      .json({ success: false, message: "Something went wrong" });
+      .json({ success: false, message: "Something went wrong :(" });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please enter both the passwords" });
+    }
+
+    const [users] = await db.query("SELECT * FROM users WHERE id = ?", [
+      req.userId,
+    ]);
+
+    if (users.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    const passwordMatches = await bcrypt.compare(
+      currentPassword,
+      users[0].password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        success: false,
+        message: "Your current password ids incorrect",
+      });
+    }
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+    await db.query("UPDATE users SET password_hash = ? WHERE id = ?", [
+      newPasswordHash,
+      req.userId,
+    ]);
+
+    return res.json({
+      success: true,
+      message: "Your passowrd has been updated",
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong :(" });
   }
 };
 
