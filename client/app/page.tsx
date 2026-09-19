@@ -43,16 +43,9 @@ export default function Home() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         router.push("/browse");
-      } else {
-        toast(
-          <CustomToast msg="Failed to login as a guest please try again" />,
-        );
       }
     } catch (err) {
       console.error("Failed to login as a guest please try again", err);
-      toast(
-        <CustomToast msg="Couldn't reach the server. Check your connection OR my WiFi might be down" />,
-      );
     }
   };
 
@@ -114,29 +107,4 @@ export default function Home() {
       </div>
     </div>
   );
-  // return (
-  //   <div className="p-5 flex-1 flex flex-col items-center justify-center gap-6 text-center">
-  //     <div>
-  //       <h1 className="text-8xl">Solve It</h1>
-  //       <p className="text-2xl md:text-xl lg:text-3xl leading-5">
-  //         Find and share previous year question papers
-  //       </p>
-  //     </div>
-
-  //     <div className="flex flex-col md:flex-row gap-3">
-  //       <button
-  //         className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-black text-white mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-  //         onClick={handleOnBrowseClick}
-  //       >
-  //         Browse Papers
-  //       </button>
-  //       <button
-  //         onClick={handleGuestLogin}
-  //         className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-black text-white mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed "
-  //       >
-  //         Continue as guest
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
 }
