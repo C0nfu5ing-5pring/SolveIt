@@ -226,6 +226,14 @@ export const deleteAccount = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
+    if (users[0].email === "guest@gmail.com") {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Guest account can't be deleted because it's a guest account c'mon",
+      });
+    }
+
     const passwordMatches = await bcrypt.compare(
       password,
       users[0].password_hash,

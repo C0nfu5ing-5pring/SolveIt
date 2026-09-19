@@ -51,6 +51,39 @@ export default function LoginPage() {
   const handleOnEmailChange = (e) => setEmail(e.target.value);
   const handleOnPasswordChange = (e) => setPassword(e.target.value);
 
+  const handleGuestLogin = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: "guest@gmail.com",
+            password: "guest123",
+          }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        router.push("/browse");
+      } else {
+        toast(
+          <CustomToast msg="Failed to login as a guest please try again" />,
+        );
+      }
+    } catch (err) {
+      console.error("Failed to login as a guest please try again", err);
+      toast(
+        <CustomToast msg="Couldn't reach the server. Check your connection OR my WiFi might be down" />,
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-[90vh] py-10">
       <div className="w-full max-w-3xl px-5">
@@ -108,13 +141,21 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Logging in" : "Log in"}
-            </button>
+            <div className="flex flex-col md:flex-row justify-center items-center">
+              <button
+                type="submit"
+                disabled={loading}
+                className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-[#9EDC7A] hover:bg-[#70c042] active:scale-95 transition-all mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Logging in" : "Log in"}
+              </button>
+              <button
+                onClick={handleGuestLogin}
+                className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit mx-auto bg-black text-white mt-2 px-6 py-2 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed "
+              >
+                Continue as guest
+              </button>
+            </div>
 
             <div className="flex items-center gap-2">
               <hr className="border border-dashed w-full" />

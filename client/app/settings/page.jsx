@@ -28,6 +28,7 @@ const page = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
+  const isUserGuest = user?.email === "guest@gmail.com";
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -296,9 +297,12 @@ const page = () => {
           <div className="flex gap-5 lg:gap-10">
             <button
               onClick={() => setShowAvatarBuilder(true)}
-              className="rounded-full flex items-center justify-center w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0"
+              className="rounded-full flex items-center cursor-pointer active:scale-95 transition-all justify-center w-20 h-20 lg:w-25 lg:h-25 sketchy-border shrink-0"
             >
               <Avatar config={avatarConfig} size={100} />
+              <div className="absolute bg-black text-white z-10 rounded-full right-0 bottom-0 w-fit px-2 ">
+                Edit
+              </div>
             </button>
 
             <div className="flex flex-col lg:gap-2 ">
@@ -337,11 +341,15 @@ const page = () => {
               ></input>
             </div>
             <button
-              disabled={updating}
+              disabled={updating || isUserGuest}
               onClick={handleEmailUpdate}
               className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {updating ? "Updating..." : "Update"}
+              {isUserGuest
+                ? "Not available for guest"
+                : updating
+                  ? "Updating..."
+                  : "Update"}
             </button>
 
             <hr className="sketchy-divider" />
@@ -365,11 +373,15 @@ const page = () => {
               </div>
             </div>
             <button
-              disabled={changingPassword}
+              disabled={changingPassword || isUserGuest}
               onClick={handleChangePassword}
               className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit ml-auto bg-[#9EDC7A] hover:bg-[#70c042] px-3 py-1 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {changingPassword ? "Updating..." : "Update"}
+              {isUserGuest
+                ? "Not available for guest"
+                : changingPassword
+                  ? "Changing..."
+                  : "Change"}
             </button>
           </div>
         </div>
@@ -451,10 +463,11 @@ const page = () => {
 
           <div>
             <button
+              disabled={isUserGuest}
               onClick={() => setShowDeleteModal(true)}
               className="text-lg md:text-xl lg:text-2xl sketchy-border w-fit  bg-[#F05A5A] hover:bg-[#e94b4b] px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Delete Account
+              {isUserGuest ? "Not available for guest" : "Delete account"}
             </button>
           </div>
         </div>

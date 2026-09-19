@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomToast from "../../components/CustomToast";
+import { useRouter } from "next/navigation";
 import { handleAuthError } from "../../lib/handleAuthError";
 
 const Page = () => {
@@ -10,6 +11,20 @@ const Page = () => {
   const [bugType, setBugType] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        setUser(null);
+      }
+    }
+  }, []);
+  const isUserGuest = user?.email === "guest@gmail.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +93,7 @@ const Page = () => {
                   id="name"
                   type="text"
                   placeholder="Your name"
-                  value={name}
+                  value={isUserGuest ? "Guest User" : name}
                   onChange={(e) => setName(e.target.value)}
                   required
                   className="text-lg md:text-xl lg:text-2xl w-full px-3 py-2 border-none outline-none bg-transparent"
@@ -99,7 +114,7 @@ const Page = () => {
                   type="email"
                   id="email"
                   placeholder="Your email"
-                  value={email}
+                  value={isUserGuest ? "guest@gmail.com" : email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="text-lg md:text-xl lg:text-2xl w-full px-3 py-2 border-none outline-none bg-transparent"
