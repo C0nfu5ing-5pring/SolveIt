@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Solve it",
   description:
     "It's a website for students to get PYQs for the examinations they are preparing for. It's free unlike some other websites that force users to upload a few documents in order to download a PDF or smthng",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
